@@ -18,8 +18,10 @@ namespace SecondLife_Battery
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
+
             DAL dal = new DAL();
             dal.getWeather();
+
         }
     }
 }

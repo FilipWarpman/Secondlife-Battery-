@@ -13,11 +13,22 @@ namespace SecondLife_Battery
         private string connectionString = @"Server=localhost;Database=dbAssignment;user=SecondLife;password=andraliv;";
 
         public void getWeather() {
-            
-            SqlConnection connection = new SqlConnection(connectionString);
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand();
+                command.CommandText = "SELECT * FROM Employee";
+                command.Connection= connection;
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read()) 
+                {
+                    Console.WriteLine(reader.GetString(1));
+                }
+            }
 
     }
-        
-
     }
 }
