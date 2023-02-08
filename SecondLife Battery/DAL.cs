@@ -10,7 +10,7 @@ namespace SecondLife_Battery
 {
     public class DAL
     {
-        private string connectionString = @"Server=localhost;Database=dbAssignment;user=SecondLife;password=andraliv;";
+        private string connectionString = @"Server=secondlife-battery.database.windows.net;Database=SecondLifeBatteryDB;user=SqlAdmin;password=Secondlife16;";
 
         public void getWeather() {
 
