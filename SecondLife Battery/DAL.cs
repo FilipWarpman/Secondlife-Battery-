@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace SecondLife_Battery
 {
     public class DAL
-    {   //Connecting to SQL Server Database
+    {   //Connecting to SQL Server Database.
         private string connectionString = @"Server=secondlife-battery.database.windows.net;Database=SecondLifeBatteryDB;user=SqlAdmin;password=Secondlife16;";
 
         public void getWeather() {
