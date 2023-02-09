@@ -15,7 +15,7 @@ namespace SecondLife_Battery
         private DateTime datum;
         private string insertedDateValue;
 
-        public void getElectricityPrice() {
+        public void GetElectricityPrice() {
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
