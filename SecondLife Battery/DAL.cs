@@ -12,12 +12,12 @@ namespace SecondLife_Battery
     public class DAL
     {   //Connecting to SQL Server Database.
         private string connectionString = @"Server=secondlife-battery.database.windows.net;Database=SecondLifeBatteryDB;user=SqlAdmin;password=Secondlife16;";
-        private double elPris;
-        private DateTime datum;
+        private double electricityPrice;
+        private DateTime date;
         private string insertedDateValue;
-        private double veckansTotalaElpris;
-        private double snittpris;
-        ArrayList prisLista = new ArrayList();
+        private double totalWeekPrice;
+        private double averagePrice;
+        ArrayList priceList = new ArrayList();
 
         public void GetElectricityPrice() {
 
@@ -41,21 +41,21 @@ namespace SecondLife_Battery
 
                 while (reader.Read())
                 {
-                    datum = reader.GetDateTime(0);
-                    elPris = reader.GetDouble(1);
-                    Console.WriteLine(elPris);
-                    Console.WriteLine(datum);
-                    veckansTotalaElpris = veckansTotalaElpris + elPris;
-                    snittpris = veckansTotalaElpris / 7;
-                    prisLista.Add(elPris);
+                    date = reader.GetDateTime(0);
+                    electricityPrice= reader.GetDouble(1);
+                    Console.WriteLine(electricityPrice);
+                    Console.WriteLine(date);
+                    totalWeekPrice = totalWeekPrice + electricityPrice;
+                    averagePrice = totalWeekPrice / 7;
+                    priceList.Add(electricityPrice);
 
                 }
-                Console.WriteLine("Snittpris: " + snittpris + "kr");
-                Console.WriteLine(prisLista[2]);
+                Console.WriteLine("Snittpris: " + averagePrice + "kr");
+                Console.WriteLine(priceList[2]);
                 
-                foreach (double elPris in prisLista)
+                foreach (double elPris in priceList)
                 {
-                    if(elPris < snittpris)
+                    if(elPris < averagePrice)
                     {
                         Console.WriteLine(elPris);
                     }
