@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -14,6 +15,9 @@ namespace SecondLife_Battery
         private double elPris;
         private DateTime datum;
         private string insertedDateValue;
+        private double veckansTotalaElpris;
+        private double snittpris;
+        ArrayList prisLista = new ArrayList();
 
         public void GetElectricityPrice() {
 
@@ -24,7 +28,7 @@ namespace SecondLife_Battery
 
                 insertedDateValue = "'2022/01/01'";
                 DateTime date1 = DateTime.Parse("2022/01/01");
-                DateTime date2 = date1.AddDays(7);
+                DateTime date2 = date1.AddDays(6);
                 Console.WriteLine(date2.ToString("yyyy-MM-dd"));
 
                 string sqlQuery = "SELECT Date, SE1 FROM ElectricityPrices WHERE Date between " + "'" + date1.ToString("yyyy-MM-dd") + "'" + " and " + "'" + date2.ToString("yyyy-MM-dd") + "'";
@@ -41,9 +45,24 @@ namespace SecondLife_Battery
                     elPris = reader.GetDouble(1);
                     Console.WriteLine(elPris);
                     Console.WriteLine(datum);
+                    veckansTotalaElpris = veckansTotalaElpris + elPris;
+                    snittpris = veckansTotalaElpris / 7;
+                    prisLista.Add(elPris);
+
                 }
+                Console.WriteLine("Snittpris: " + snittpris + "kr");
+                Console.WriteLine(prisLista[2]);
+                
+                foreach (double elPris in prisLista)
+                {
+                    if(elPris < snittpris)
+                    {
+                        Console.WriteLine(elPris);
+                    }
+                }
+
             }
 
-    }
+        }
     }
 }
