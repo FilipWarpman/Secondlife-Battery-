@@ -23,8 +23,11 @@ namespace SecondLife_Battery
                 SqlCommand command = new SqlCommand();
 
                 insertedDateValue = "'2022/01/01'";
+                DateTime date1 = DateTime.Parse("2022/01/01");
+                DateTime date2 = date1.AddDays(7);
+                Console.WriteLine(date2.ToString("yyyy-MM-dd"));
 
-                string sqlQuery ="SELECT Date, SE1 FROM ElectricityPrices WHERE Date = " + insertedDateValue;
+                string sqlQuery = "SELECT Date, SE1 FROM ElectricityPrices WHERE Date between " + "'" + date1.ToString("yyyy-MM-dd") + "'" + " and " + "'" + date2.ToString("yyyy-MM-dd") + "'";
                 //command.CommandText = "SELECT Date, SE1 FROM ElectricityPrices\r\nWHERE Date = '2022/01/01'";
                 Console.WriteLine(sqlQuery);
                 command.CommandText = sqlQuery;
@@ -34,17 +37,10 @@ namespace SecondLife_Battery
 
                 while (reader.Read())
                 {
-                    Console.WriteLine(reader.GetValue(1).GetType());
-
                     datum = reader.GetDateTime(0);
-                    for (int i = 0;i < 7; i++)
-                    {
-                        datum = datum.AddDays(1);
-                        elPris = reader.GetDouble(1);
-                        Console.WriteLine(elPris);
-                        Console.WriteLine(datum);
-                    }
-                    
+                    elPris = reader.GetDouble(1);
+                    Console.WriteLine(elPris);
+                    Console.WriteLine(datum);
                 }
             }
 

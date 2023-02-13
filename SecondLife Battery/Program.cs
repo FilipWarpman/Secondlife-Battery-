@@ -20,7 +20,7 @@ namespace SecondLife_Battery
             //Application.Run(new Form1());
 
             DAL dal = new DAL();
-            dal.getElectricityPrice();
+            dal.GetElectricityPrice();
 
         }
     }
