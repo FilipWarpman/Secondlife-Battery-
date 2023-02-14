@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -12,16 +13,13 @@ namespace SecondLife_Battery
     public class DAL
     {   //Connecting to SQL Server Database.
         private string connectionString = @"Server=secondlife-battery.database.windows.net;Database=SecondLifeBatteryDB;user=SqlAdmin;password=Secondlife16;";
-        private double elPris;
-        private DateTime datum;
+        private double electricityPrice;
+        private DateTime date;
         private string insertedDateValue;
-<<<<<<< Updated upstream
-=======
         private double totalWeekPrice;
         private double averagePrice;
         ArrayList priceList = new ArrayList();
         ArrayList dateList = new ArrayList();
->>>>>>> Stashed changes
 
         public void GetElectricityPrice() {
 
@@ -31,8 +29,11 @@ namespace SecondLife_Battery
                 SqlCommand command = new SqlCommand();
 
                 insertedDateValue = "'2022/01/01'";
+                DateTime date1 = DateTime.Parse("2022/01/01");
+                DateTime date2 = date1.AddDays(7);
+                Console.WriteLine(date2.ToString("yyyy-MM-dd"));
 
-                string sqlQuery ="SELECT Date, SE1 FROM ElectricityPrices WHERE Date = " + insertedDateValue;
+                string sqlQuery = "SELECT Date, SE1 FROM ElectricityPrices WHERE Date between " + "'" + date1.ToString("yyyy-MM-dd") + "'" + " and " + "'" + date2.ToString("yyyy-MM-dd") + "'";
                 //command.CommandText = "SELECT Date, SE1 FROM ElectricityPrices\r\nWHERE Date = '2022/01/01'";
                 Console.WriteLine(sqlQuery);
                 command.CommandText = sqlQuery;
@@ -42,17 +43,7 @@ namespace SecondLife_Battery
               
                 while (reader.Read())
                 {
-<<<<<<< Updated upstream
-                    Console.WriteLine(reader.GetValue(1).GetType());
-
-                    datum = reader.GetDateTime(0);
-                    for (int i = 0;i < 7; i++)
-                    {
-                        datum = datum.AddDays(1);
-                        elPris = reader.GetDouble(1);
-                        Console.WriteLine(elPris);
-                        Console.WriteLine(datum);
-=======
+                    electricityPrice = reader.GetDouble(1);
                     date = reader.GetDateTime(0);
                     electricityPrice= reader.GetDouble(1);
                     totalWeekPrice = totalWeekPrice + electricityPrice;
@@ -68,7 +59,6 @@ namespace SecondLife_Battery
                     {
                         int i = priceList.IndexOf(price);
                         Console.WriteLine("Date when price is lower than average is " + dateList[i] + " and the price is: " + dayPrice + "kr/MWh.");
->>>>>>> Stashed changes
                     }
                     
                 }
