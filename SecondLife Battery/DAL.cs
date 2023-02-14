@@ -54,11 +54,12 @@ namespace SecondLife_Battery
                 
                 foreach (Object price in priceList)
                 {
-                    double dayPrice = (double)price;
+                    double dayPrice = (double)price;                    
                     if (dayPrice < averagePrice)
                     {
                         int i = priceList.IndexOf(price);
-                        Console.WriteLine("Date when price is lower than average is " + dateList[i] + " and the price is: " + dayPrice + "kr/MWh.");
+                        DateTime tempDate = (DateTime)dateList[i];
+                        Console.WriteLine("Date when price is lower than average is " + tempDate.ToString("yyyy-MM-dd") + " and the price is: " + dayPrice + "kr/MWh.");
                     }
                     
                 }
