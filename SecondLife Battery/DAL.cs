@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Net.Configuration;
@@ -14,6 +15,13 @@ namespace SecondLife_Battery
         private double elPris;
         private DateTime datum;
         private string insertedDateValue;
+<<<<<<< Updated upstream
+=======
+        private double totalWeekPrice;
+        private double averagePrice;
+        ArrayList priceList = new ArrayList();
+        ArrayList dateList = new ArrayList();
+>>>>>>> Stashed changes
 
         public void GetElectricityPrice() {
 
@@ -31,9 +39,10 @@ namespace SecondLife_Battery
                 command.Connection= connection;
 
                 SqlDataReader reader = command.ExecuteReader();
-
+              
                 while (reader.Read())
                 {
+<<<<<<< Updated upstream
                     Console.WriteLine(reader.GetValue(1).GetType());
 
                     datum = reader.GetDateTime(0);
@@ -43,6 +52,23 @@ namespace SecondLife_Battery
                         elPris = reader.GetDouble(1);
                         Console.WriteLine(elPris);
                         Console.WriteLine(datum);
+=======
+                    date = reader.GetDateTime(0);
+                    electricityPrice= reader.GetDouble(1);
+                    totalWeekPrice = totalWeekPrice + electricityPrice;
+                    priceList.Add(electricityPrice);
+                    dateList.Add(date);
+                }
+                averagePrice = totalWeekPrice / priceList.Count;
+                
+                foreach (Object price in priceList)
+                {
+                    double dayPrice = (double)price;
+                    if (dayPrice < averagePrice)
+                    {
+                        int i = priceList.IndexOf(price);
+                        Console.WriteLine("Date when price is lower than average is " + dateList[i] + " and the price is: " + dayPrice + "kr/MWh.");
+>>>>>>> Stashed changes
                     }
                     
                 }
