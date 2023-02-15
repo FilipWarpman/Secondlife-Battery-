@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Net.Configuration;
@@ -19,6 +20,8 @@ namespace SecondLife_Battery
         private double averagePrice;
         ArrayList priceList = new ArrayList();
 
+        ArrayList dateList = new ArrayList();
+
         public void GetElectricityPrice() {
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -28,7 +31,9 @@ namespace SecondLife_Battery
 
                 insertedDateValue = "'2022/01/01'";
                 DateTime date1 = DateTime.Parse("2022/01/01");
-                DateTime date2 = date1.AddDays(6);
+
+                DateTime date2 = date1.AddDays(7);
+
                 Console.WriteLine(date2.ToString("yyyy-MM-dd"));
 
                 string sqlQuery = "SELECT Date, SE1 FROM ElectricityPrices WHERE Date between " + "'" + date1.ToString("yyyy-MM-dd") + "'" + " and " + "'" + date2.ToString("yyyy-MM-dd") + "'";
@@ -38,26 +43,28 @@ namespace SecondLife_Battery
                 command.Connection= connection;
 
                 SqlDataReader reader = command.ExecuteReader();
-
+              
                 while (reader.Read())
                 {
+
+                    electricityPrice = reader.GetDouble(1);
                     date = reader.GetDateTime(0);
                     electricityPrice= reader.GetDouble(1);
-                    Console.WriteLine(electricityPrice);
-                    Console.WriteLine(date);
                     totalWeekPrice = totalWeekPrice + electricityPrice;
-                    averagePrice = totalWeekPrice / 7;
                     priceList.Add(electricityPrice);
-
+                    dateList.Add(date);
                 }
-                Console.WriteLine("Snittpris: " + averagePrice + "kr");
-                Console.WriteLine(priceList[2]);
+                averagePrice = totalWeekPrice / priceList.Count;
                 
-                foreach (double elPris in priceList)
+                foreach (Object price in priceList)
                 {
-                    if(elPris < averagePrice)
+                    double dayPrice = (double)price;                    
+                    if (dayPrice < averagePrice)
                     {
-                        Console.WriteLine(elPris);
+                        int i = priceList.IndexOf(price);
+                        DateTime tempDate = (DateTime)dateList[i];
+                        Console.WriteLine("Date when price is lower than average is " + tempDate.ToString("yyyy-MM-dd") + " and the price is: " + dayPrice + "kr/MWh.");
+
                     }
                 }
 
