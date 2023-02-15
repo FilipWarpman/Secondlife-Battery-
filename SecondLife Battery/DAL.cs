@@ -15,7 +15,7 @@ namespace SecondLife_Battery
         private string connectionString = @"Server=secondlife-battery.database.windows.net;Database=SecondLifeBatteryDB;user=SqlAdmin;password=Secondlife16;";
         private double electricityPrice;
         private DateTime date;
-        private string insertedDateValue;
+        private string insertedDateValue;//borde ta bort
         private double totalWeekPrice;
         private double averagePrice;
         ArrayList priceList = new ArrayList();
@@ -29,16 +29,16 @@ namespace SecondLife_Battery
                 connection.Open();
                 SqlCommand command = new SqlCommand();
 
-                insertedDateValue = "'2022/01/01'";
+                insertedDateValue = "'2022/01/01'"; //borde ta bort
                 DateTime date1 = DateTime.Parse("2022/01/01");
 
                 DateTime date2 = date1.AddDays(7);
 
                 Console.WriteLine(date2.ToString("yyyy-MM-dd"));
 
+                
                 string sqlQuery = "SELECT Date, SE1 FROM ElectricityPrices WHERE Date between " + "'" + date1.ToString("yyyy-MM-dd") + "'" + " and " + "'" + date2.ToString("yyyy-MM-dd") + "'";
-                //command.CommandText = "SELECT Date, SE1 FROM ElectricityPrices\r\nWHERE Date = '2022/01/01'";
-                Console.WriteLine(sqlQuery);
+                Console.WriteLine(sqlQuery);//write out query 
                 command.CommandText = sqlQuery;
                 command.Connection= connection;
 
@@ -46,17 +46,15 @@ namespace SecondLife_Battery
               
                 while (reader.Read())
                 {
-
-                    electricityPrice = reader.GetDouble(1);
-                    date = reader.GetDateTime(0);
-                    electricityPrice= reader.GetDouble(1);
-                    totalWeekPrice = totalWeekPrice + electricityPrice;
-                    priceList.Add(electricityPrice);
-                    dateList.Add(date);
+                    date = reader.GetDateTime(0);//Get the date in column nbr 0
+                    electricityPrice= reader.GetDouble(1);//Find electricity price in column nbr 1(SE1)
+                    totalWeekPrice = totalWeekPrice + electricityPrice; //Add all prices
+                    priceList.Add(electricityPrice);//add to pricelist
+                    dateList.Add(date);//Add date to datelist
                 }
-                averagePrice = totalWeekPrice / priceList.Count;
+                averagePrice = totalWeekPrice / priceList.Count;//Calculate the average
                 
-                foreach (Object price in priceList)
+                foreach (Object price in priceList)//loop prices in the list and print each with lower price than average
                 {
                     double dayPrice = (double)price;                    
                     if (dayPrice < averagePrice)
