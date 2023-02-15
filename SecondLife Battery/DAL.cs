@@ -19,6 +19,7 @@ namespace SecondLife_Battery
         private double totalWeekPrice;
         private double averagePrice;
         ArrayList priceList = new ArrayList();
+
         ArrayList dateList = new ArrayList();
 
         public void GetElectricityPrice() {
@@ -30,7 +31,9 @@ namespace SecondLife_Battery
 
                 insertedDateValue = "'2022/01/01'";
                 DateTime date1 = DateTime.Parse("2022/01/01");
+
                 DateTime date2 = date1.AddDays(7);
+
                 Console.WriteLine(date2.ToString("yyyy-MM-dd"));
 
                 string sqlQuery = "SELECT Date, SE1 FROM ElectricityPrices WHERE Date between " + "'" + date1.ToString("yyyy-MM-dd") + "'" + " and " + "'" + date2.ToString("yyyy-MM-dd") + "'";
@@ -43,6 +46,7 @@ namespace SecondLife_Battery
               
                 while (reader.Read())
                 {
+
                     electricityPrice = reader.GetDouble(1);
                     date = reader.GetDateTime(0);
                     electricityPrice= reader.GetDouble(1);
@@ -60,11 +64,12 @@ namespace SecondLife_Battery
                         int i = priceList.IndexOf(price);
                         DateTime tempDate = (DateTime)dateList[i];
                         Console.WriteLine("Date when price is lower than average is " + tempDate.ToString("yyyy-MM-dd") + " and the price is: " + dayPrice + "kr/MWh.");
+
                     }
-                    
                 }
+
             }
 
-    }
+        }
     }
 }
