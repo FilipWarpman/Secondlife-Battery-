@@ -25,9 +25,9 @@ namespace SecondLife_Battery
 
         public void SetDate()
         {
-            insertedDateValue = SecondLifeClient.DatePicker_ValueChanged(sender, e);
+            insertedDateValue = SecondLifeClient.DatePicker_ValueChanged();
         }
-        public void GetElectricityPrice() {
+        public double GetElectricityPrice() {
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -67,9 +67,12 @@ namespace SecondLife_Battery
                         int i = priceList.IndexOf(price);
                         DateTime tempDate = (DateTime)dateList[i];
                         Console.WriteLine("Date when price is lower than average is " + tempDate.ToString("yyyy-MM-dd") + " and the price is: " + dayPrice + "kr/MWh.");
-
+                        return (double)price;                         
                     }
+                    else return 0; //Försök fixa bättre return
+
                 }
+                
 
             }
 

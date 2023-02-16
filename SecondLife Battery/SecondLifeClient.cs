@@ -18,19 +18,23 @@ namespace SecondLife_Battery
             InitializeComponent();
         }
 
-        private void SecondLifeClient_Load(object sender, EventArgs e)
+        private void SecondLifeClient_Load(object sender, EventArgs e)//namnet på forms
         {
 
         }
-        public DateTime DatePicker_ValueChanged(object sender, EventArgs e)
+        public void DatePicker_ValueChanged(object sender, EventArgs e)//namnet på datepickern
         {
+        }
+        public void TextBoxSuggestion_TextChanged(object sender, EventArgs e)//namnet på textboxen
+        {
+
+        }
+        public DateTime ButtonGetResults_Click(object sender, EventArgs e)//namnet på knappen
+        {
+            
             return DatePicker.Value;
-        }
-        public void TextBoxSuggestion_TextChanged(object sender, EventArgs e)
-        {
 
+            TextBoxSuggestion.AppendText();
         }
-
-        
     }
 }

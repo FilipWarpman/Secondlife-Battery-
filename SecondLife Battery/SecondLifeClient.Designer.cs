@@ -30,6 +30,7 @@
         {
             this.DatePicker = new System.Windows.Forms.DateTimePicker();
             this.TextBoxSuggestion = new System.Windows.Forms.TextBox();
+            this.buttonGetResults = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // DatePicker
@@ -48,11 +49,22 @@
             this.TextBoxSuggestion.TabIndex = 1;
             this.TextBoxSuggestion.TextChanged += new System.EventHandler(this.TextBoxSuggestion_TextChanged);
             // 
+            // buttonGetResults
+            // 
+            this.buttonGetResults.Location = new System.Drawing.Point(572, 121);
+            this.buttonGetResults.Name = "buttonGetResults";
+            this.buttonGetResults.Size = new System.Drawing.Size(164, 116);
+            this.buttonGetResults.TabIndex = 2;
+            this.buttonGetResults.Text = "GET RESULT";
+            this.buttonGetResults.UseVisualStyleBackColor = true;
+            this.buttonGetResults.Click += new System.EventHandler(this.buttonGetResults_Click);
+            // 
             // SecondLifeClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.buttonGetResults);
             this.Controls.Add(this.TextBoxSuggestion);
             this.Controls.Add(this.DatePicker);
             this.Name = "SecondLifeClient";
@@ -67,6 +79,7 @@
 
         private System.Windows.Forms.DateTimePicker DatePicker;
         private System.Windows.Forms.TextBox TextBoxSuggestion;
+        private System.Windows.Forms.Button buttonGetResults;
     }
 }
 
