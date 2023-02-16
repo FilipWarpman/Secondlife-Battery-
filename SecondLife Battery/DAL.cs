@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net.Configuration;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace SecondLife_Battery
 {
@@ -15,13 +16,17 @@ namespace SecondLife_Battery
         private string connectionString = @"Server=secondlife-battery.database.windows.net;Database=SecondLifeBatteryDB;user=SqlAdmin;password=Secondlife16;";
         private double electricityPrice;
         private DateTime date;
-        private string insertedDateValue;//borde ta bort
+        private DateTime insertedDateValue;
         private double totalWeekPrice;
         private double averagePrice;
         ArrayList priceList = new ArrayList();
 
         ArrayList dateList = new ArrayList();
 
+        public void SetDate()
+        {
+            insertedDateValue = SecondLifeClient.DatePicker_ValueChanged(sender, e);
+        }
         public void GetElectricityPrice() {
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -29,15 +34,15 @@ namespace SecondLife_Battery
                 connection.Open();
                 SqlCommand command = new SqlCommand();
 
-                insertedDateValue = "'2022/01/01'"; //borde ta bort
-                DateTime date1 = DateTime.Parse("2022/01/01");
+                insertedDateValue = DateTime.Parse("yyyy-mm-dd");
+                DateTime date1 = DateTime.Parse("2022/01/01");//Testvärde
 
-                DateTime date2 = date1.AddDays(7);
+                DateTime date2 = insertedDateValue.AddDays(6);
 
                 Console.WriteLine(date2.ToString("yyyy-MM-dd"));
 
                 
-                string sqlQuery = "SELECT Date, SE1 FROM ElectricityPrices WHERE Date between " + "'" + date1.ToString("yyyy-MM-dd") + "'" + " and " + "'" + date2.ToString("yyyy-MM-dd") + "'";
+                string sqlQuery = "SELECT Date, SE1 FROM ElectricityPrices WHERE Date between " + "'" + insertedDateValue.ToString("yyyy-MM-dd") + "'" + " and " + "'" + date2.ToString("yyyy-MM-dd") + "'";
                 Console.WriteLine(sqlQuery);//write out query 
                 command.CommandText = sqlQuery;
                 command.Connection= connection;
