@@ -1,4 +1,6 @@
-﻿namespace SecondLife_Battery
+﻿using System;
+
+namespace SecondLife_Battery
 {
     partial class SecondLifeClient
     {
@@ -35,10 +37,13 @@
             // 
             // DatePicker
             // 
+            DateTime date = DateTime.Now;
+            DateTime newDate = date.AddYears(-1);
             this.DatePicker.Location = new System.Drawing.Point(255, 113);
             this.DatePicker.Name = "DatePicker";
             this.DatePicker.Size = new System.Drawing.Size(200, 26);
             this.DatePicker.TabIndex = 0;
+            this.DatePicker.Value = newDate;
             this.DatePicker.ValueChanged += new System.EventHandler(this.DatePicker_ValueChanged);
             // 
             // TextBoxSuggestion
@@ -57,7 +62,7 @@
             this.buttonGetResults.TabIndex = 2;
             this.buttonGetResults.Text = "GET RESULT";
             this.buttonGetResults.UseVisualStyleBackColor = true;
-            this.buttonGetResults.Click += new System.EventHandler(this.buttonGetResults_Click);
+            this.buttonGetResults.Click += new System.EventHandler(this.ButtonGetResults_Click);
             // 
             // SecondLifeClient
             // 

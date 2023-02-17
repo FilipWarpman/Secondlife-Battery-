@@ -15,12 +15,12 @@ namespace SecondLife_Battery
         [STAThread]
         static void Main()
         {
-            //Application.EnableVisualStyles();
-            //Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new Form1());
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new SecondLifeClient());
 
-            DAL dal = new DAL();
-            dal.GetElectricityPrice();
+            //DAL dal = new DAL();
+            //dal.GetElectricityPrice();
 
         }
     }

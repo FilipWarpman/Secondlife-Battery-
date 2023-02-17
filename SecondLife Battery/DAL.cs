@@ -19,28 +19,23 @@ namespace SecondLife_Battery
         private DateTime insertedDateValue;
         private double totalWeekPrice;
         private double averagePrice;
+        ArrayList lowerThanAveragePrice = new ArrayList();
         ArrayList priceList = new ArrayList();
-
         ArrayList dateList = new ArrayList();
 
-        public void SetDate()
+        public void SetDate(DateTime tempDateValue)
         {
-            insertedDateValue = SecondLifeClient.DatePicker_ValueChanged();
+            insertedDateValue = tempDateValue;
         }
-        public double GetElectricityPrice() {
+        public ArrayList GetElectricityPrice() {
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
                 SqlCommand command = new SqlCommand();
 
-                insertedDateValue = DateTime.Parse("yyyy-mm-dd");
-                DateTime date1 = DateTime.Parse("2022/01/01");//Testvärde
-
                 DateTime date2 = insertedDateValue.AddDays(6);
-
                 Console.WriteLine(date2.ToString("yyyy-MM-dd"));
-
                 
                 string sqlQuery = "SELECT Date, SE1 FROM ElectricityPrices WHERE Date between " + "'" + insertedDateValue.ToString("yyyy-MM-dd") + "'" + " and " + "'" + date2.ToString("yyyy-MM-dd") + "'";
                 Console.WriteLine(sqlQuery);//write out query 
@@ -58,6 +53,7 @@ namespace SecondLife_Battery
                     dateList.Add(date);//Add date to datelist
                 }
                 averagePrice = totalWeekPrice / priceList.Count;//Calculate the average
+                Console.WriteLine(averagePrice);
                 
                 foreach (Object price in priceList)//loop prices in the list and print each with lower price than average
                 {
@@ -67,15 +63,18 @@ namespace SecondLife_Battery
                         int i = priceList.IndexOf(price);
                         DateTime tempDate = (DateTime)dateList[i];
                         Console.WriteLine("Date when price is lower than average is " + tempDate.ToString("yyyy-MM-dd") + " and the price is: " + dayPrice + "kr/MWh.");
-                        return (double)price;                         
+                        lowerThanAveragePrice.Add(dayPrice);                         
                     }
-                    else return 0; //Försök fixa bättre return
-
                 }
-                
-
+                return lowerThanAveragePrice;
             }
-
+        }
+        public void ClearData()
+        {
+            Console.WriteLine(" Längden av lowerThanAveragePrice är så här många element: "+lowerThanAveragePrice.Count);
+            lowerThanAveragePrice.Clear();
+            priceList.Clear();
+            dateList.Clear();
         }
     }
 }

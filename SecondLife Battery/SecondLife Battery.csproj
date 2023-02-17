@@ -47,7 +47,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="DAL.cs" />
     <Compile Include="SecondLifeClient.cs">
       <SubType>Form</SubType>
