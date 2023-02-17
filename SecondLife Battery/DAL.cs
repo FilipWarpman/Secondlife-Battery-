@@ -75,6 +75,7 @@ namespace SecondLife_Battery
             lowerThanAveragePrice.Clear();
             priceList.Clear();
             dateList.Clear();
+            totalWeekPrice= 0;
         }
     }
 }
