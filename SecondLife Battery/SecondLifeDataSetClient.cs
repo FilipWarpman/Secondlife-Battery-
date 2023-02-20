@@ -29,11 +29,17 @@ namespace SecondLife_Battery
             DateTime date = dateTimePicker.Value;
             dal.SetDate(date);
             dataGridViewElectricityPrices.DataSource = dal.GetElectricityPrice();
+            
         }
 
         private void DateTimePicker_ValueChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            await dal.GetWeatherAsync();
         }
     }
 }

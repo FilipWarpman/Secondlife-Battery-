@@ -33,6 +33,7 @@ namespace SecondLife_Battery
             this.dataGridViewElectricityPrices = new System.Windows.Forms.DataGridView();
             this.getResult = new System.Windows.Forms.Button();
             this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewElectricityPrices)).BeginInit();
             this.SuspendLayout();
             // 
@@ -59,20 +60,29 @@ namespace SecondLife_Battery
             // 
             // dateTimePicker
             // 
-            DateTime currentDate = DateTime.Now;
-            DateTime tempDate = currentDate.AddYears(-1);
             this.dateTimePicker.Location = new System.Drawing.Point(222, 60);
             this.dateTimePicker.Name = "dateTimePicker";
             this.dateTimePicker.Size = new System.Drawing.Size(200, 26);
             this.dateTimePicker.TabIndex = 2;
-            this.dateTimePicker.Value= tempDate;
+            this.dateTimePicker.Value = new System.DateTime(2022, 2, 20, 13, 24, 43, 104);
             this.dateTimePicker.ValueChanged += new System.EventHandler(this.DateTimePicker_ValueChanged);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(910, 58);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(91, 69);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // SecondLifeDataSetClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1121, 716);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.dateTimePicker);
             this.Controls.Add(this.getResult);
             this.Controls.Add(this.dataGridViewElectricityPrices);
@@ -88,5 +98,6 @@ namespace SecondLife_Battery
         private System.Windows.Forms.DataGridView dataGridViewElectricityPrices;
         private System.Windows.Forms.Button getResult;
         private System.Windows.Forms.DateTimePicker dateTimePicker;
+        private System.Windows.Forms.Button button1;
     }
 }
