@@ -15,12 +15,14 @@ namespace SecondLife_Battery
         private string connectionString = @"Server=secondlife-battery.database.windows.net;Database=SecondLifeBatteryDB;user=SqlAdmin;password=Secondlife16;";
         private DateTime insertedDateValue;
         private DataSet dataSet;
+        DataTable dataTable = new DataTable();
+
 
         public void SetDate(DateTime tempDateValue)
         {
             insertedDateValue = tempDateValue;
         }
-        public DataSet GetElectricityPrice()
+        public DataTable GetElectricityPrice()
         {
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -34,10 +36,19 @@ namespace SecondLife_Battery
                 command.CommandText = sqlQuery;
                 command.Connection = connection;
 
+
                 SqlDataAdapter adapter = new SqlDataAdapter(sqlQuery, connection);
-                adapter.Fill(dataSet);
+                SqlCommandBuilder commandBuilder = new SqlCommandBuilder(adapter);
+                adapter.Fill(dataTable);
+                dataTable.Columns["SE1"].ColumnName = "Electricity Price";
+
             }
-            return dataSet;
+            return dataTable;
+        }
+        public void ClearData()
+        {
+            dataTable.Clear();
+            dataTable.Columns.Clear();
         }
 
     }

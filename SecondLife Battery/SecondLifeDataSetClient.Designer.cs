@@ -1,4 +1,6 @@
-﻿namespace SecondLife_Battery
+﻿using System;
+
+namespace SecondLife_Battery
 {
     partial class SecondLifeDataSetClient
     {
@@ -30,6 +32,7 @@
         {
             this.dataGridViewElectricityPrices = new System.Windows.Forms.DataGridView();
             this.getResult = new System.Windows.Forms.Button();
+            this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewElectricityPrices)).BeginInit();
             this.SuspendLayout();
             // 
@@ -54,11 +57,23 @@
             this.getResult.UseVisualStyleBackColor = true;
             this.getResult.Click += new System.EventHandler(this.GetResult_Click);
             // 
+            // dateTimePicker
+            // 
+            DateTime currentDate = DateTime.Now;
+            DateTime tempDate = currentDate.AddYears(-1);
+            this.dateTimePicker.Location = new System.Drawing.Point(222, 60);
+            this.dateTimePicker.Name = "dateTimePicker";
+            this.dateTimePicker.Size = new System.Drawing.Size(200, 26);
+            this.dateTimePicker.TabIndex = 2;
+            this.dateTimePicker.Value= tempDate;
+            this.dateTimePicker.ValueChanged += new System.EventHandler(this.DateTimePicker_ValueChanged);
+            // 
             // SecondLifeDataSetClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1121, 716);
+            this.Controls.Add(this.dateTimePicker);
             this.Controls.Add(this.getResult);
             this.Controls.Add(this.dataGridViewElectricityPrices);
             this.Name = "SecondLifeDataSetClient";
@@ -72,5 +87,6 @@
 
         private System.Windows.Forms.DataGridView dataGridViewElectricityPrices;
         private System.Windows.Forms.Button getResult;
+        private System.Windows.Forms.DateTimePicker dateTimePicker;
     }
 }

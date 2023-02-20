@@ -17,7 +17,7 @@ namespace SecondLife_Battery
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new SecondLifeClient());
+            Application.Run(new SecondLifeDataSetClient());
 
             //DAL dal = new DAL();
             //dal.GetElectricityPrice();

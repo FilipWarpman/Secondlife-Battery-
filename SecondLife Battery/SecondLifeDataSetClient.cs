@@ -12,6 +12,7 @@ namespace SecondLife_Battery
 {
     public partial class SecondLifeDataSetClient : Form
     {
+        DataAccessLayer dal = new DataAccessLayer();
         public SecondLifeDataSetClient()
         {
             InitializeComponent();
@@ -23,6 +24,14 @@ namespace SecondLife_Battery
         }
 
         private void GetResult_Click(object sender, EventArgs e)
+        {
+            dal.ClearData();
+            DateTime date = dateTimePicker.Value;
+            dal.SetDate(date);
+            dataGridViewElectricityPrices.DataSource = dal.GetElectricityPrice();
+        }
+
+        private void DateTimePicker_ValueChanged(object sender, EventArgs e)
         {
 
         }
