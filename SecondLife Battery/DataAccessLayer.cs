@@ -17,11 +17,13 @@ namespace SecondLife_Battery
         private string connectionString = @"Server=secondlife-battery.database.windows.net;Database=SecondLifeBatteryDB;user=SqlAdmin;password=Secondlife16;";
         private DateTime insertedDateValue;
         DataTable dataTable = new DataTable();
+        DataTable dataTableWeather = new DataTable();
         ArrayList arrayWind = new ArrayList();
         ArrayList arrayCloud = new ArrayList();
         ArrayList arrayDate = new ArrayList();
-        double windSpeed;
-        double cloudCover;
+        private double windSpeed;
+        private double cloudCover;
+        private DateTime weatherDate;
         public void SetDate(DateTime tempDateValue)
         {
             insertedDateValue = tempDateValue;
@@ -55,9 +57,11 @@ namespace SecondLife_Battery
         {
             dataTable.Clear();
             dataTable.Columns.Clear();
+            dataTableWeather.Clear();
+            dataTableWeather.Columns.Clear();
         }
 
-        public async Task GetWeatherAsync()
+        public async Task<DataTable> GetWeatherAsync()
         {
             var client = new HttpClient();
 
@@ -69,48 +73,94 @@ namespace SecondLife_Battery
             var body = await response.Content.ReadAsStringAsync();
 
             dynamic weather = JsonConvert.DeserializeObject(body);
-            dataTable.Columns.Add("Cloud Cover");
-            dataTable.Columns.Add("Wind Speed");
-            DataRow dataRowCloud = dataTable.NewRow();
-            DataRow dataRowWind = dataTable.NewRow();
 
             foreach (var obj in weather.days)
             {
                 string weather_Date = obj.datetime;
-                string weather_wind = obj.windspeed;
-                string weather_cloudcover = obj.cloudcover;
-                Console.WriteLine("Molntäckningssgraden för datumet " + weather_Date + " är: " + weather_cloudcover + "%, vindhastigheten är: " + weather_wind + "km/h.");
                 try
                 {
                     windSpeed = Convert.ToDouble(obj.windspeed);
                     cloudCover = Convert.ToDouble(obj.cloudcover);
+                    weatherDate = Convert.ToDateTime(weather_Date);
                     arrayWind.Add(windSpeed);
                     arrayCloud.Add(cloudCover);
                     arrayDate.Add(weather_Date);
                 }
                 catch (Exception ex)
                 {
-
+                    
                 }
-                //arrayWind.Add(windSpeed);
-                //arrayCloud.Add(cloudCover);
-
             }
-            for (int i = 0; i < arrayWind.Count; i++)
+            DataColumn dataColumn;
+            //Create Date column.
+            dataColumn = new DataColumn();
+            dataColumn.ColumnName = "Date";
+            dataColumn.DataType = typeof(DateTime);
+            dataTableWeather.Columns.Add(dataColumn);
+            //Create Wind velocity column.
+            dataColumn = new DataColumn();
+            dataColumn.ColumnName = "Wind Velocity (km/h)";
+            dataColumn.DataType = typeof(double);
+            dataTableWeather.Columns.Add(dataColumn);
+            //Create Cloud Coverage column.
+            dataColumn = new DataColumn();
+            dataColumn.ColumnName = "Cloud Coverage (%)";
+            dataColumn.DataType = typeof(double);
+            dataTableWeather.Columns.Add(dataColumn);            
+            //Create the recommendation column.
+            dataColumn = new DataColumn();
+            dataColumn.ColumnName = "Charge?";
+            dataColumn.DataType = typeof(string);
+            dataTableWeather.Columns.Add(dataColumn);
+
+            for (int i = 0; i < 7; i++)
             {
-                if ((double)arrayWind[i] >= 15)
+                DataRow row = dataTableWeather.NewRow();
+                if ((double)arrayWind[i] >= 15 && (double)arrayCloud[i] < 25) //Tweak the values here to recieve different output
                 {
-                    Console.WriteLine("Windy on the date: " + arrayDate[i]);
-                    Console.WriteLine("Wind speed is: " + (double)arrayWind[i]+" km/h");
-                    Console.WriteLine("-------------------------------");
+                    row[0] = arrayDate[i];
+                    row[1] = (double)arrayWind[i];
+                    row[2] = (double)arrayCloud[i];
+                    row[3] = "Yes, both windy and sunny weather!";
+                    dataTableWeather.Rows.Add(row);
                 }
-                if ((double)arrayCloud[i] >= 50)
+                else if ((double)arrayWind[i] >= 15 && (Double)arrayCloud[i] >= 25)
                 {
-                    Console.WriteLine("Cloudy on the date: " + arrayDate[i]);
-                    Console.WriteLine("The cloud coverage is: " + (double)arrayCloud[i] + "%");
-                    Console.WriteLine("-------------------------------");
+                    row[0] = arrayDate[i];
+                    row[1] = (double)arrayWind[i];
+                    row[2] = (double)arrayCloud[i];
+                    row[3] = "Yes, but only if you primary energy source is wind.";
+                    dataTableWeather.Rows.Add(row);
                 }
+                else if ((double)arrayWind[i] < 15 && (double)arrayCloud[i] < 25)
+                {
+                    row[0] = arrayDate[i];
+                    row[1] = (double)arrayWind[i];
+                    row[2] = (double)arrayCloud[i];
+                    row[3] = "Yes, but only if your primary energy source is solar.";
+                    dataTableWeather.Rows.Add(row);
+                }
+                else
+                {
+                    row["Date"] = arrayDate[i];
+                    row["Wind Velocity (km/h)"] = (double)arrayWind[i];
+                    row["Cloud Coverage (%)"] = (double)arrayCloud[i];
+                    row["Charge?"] = "No, it is cloudy and not very windy.";
+                    dataTableWeather.Rows.Add(row);
+                }
+                
+                //if ((double)arrayCloud[i] < 25) //Tweak the values here to recieve different output
+                //{
+                //    Console.WriteLine("Sunny on the date: " + arrayDate[i]);
+                //    Console.WriteLine("The cloud coverage is: " + (double)arrayCloud[i] + "%");
+                //    Console.WriteLine("-------------------------------");
+
+                //    row["Date"] = arrayDate[i];
+                //    row["Wind Velocity"] = (double)arrayWind[i];
+                //    row["Cloud Coverage"] = (double)(arrayCloud[i]);
+                //}
             }
+            return dataTableWeather;
         }
     }
 }
