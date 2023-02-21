@@ -56,7 +56,7 @@ namespace SecondLife_Battery
             this.getResult.Name = "getResult";
             this.getResult.Size = new System.Drawing.Size(238, 88);
             this.getResult.TabIndex = 1;
-            this.getResult.Text = "GET RESULT";
+            this.getResult.Text = "Show Price";
             this.getResult.UseVisualStyleBackColor = true;
             this.getResult.Click += new System.EventHandler(this.GetResult_Click);
             // 
@@ -67,7 +67,7 @@ namespace SecondLife_Battery
             this.dataGridViewWeather.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dataGridViewWeather.Name = "dataGridViewWeather";
             this.dataGridViewWeather.RowHeadersWidth = 62;
-            this.dataGridViewWeather.Size = new System.Drawing.Size(616, 445);
+            this.dataGridViewWeather.Size = new System.Drawing.Size(883, 445);
             this.dataGridViewWeather.TabIndex = 3;
             // 
             // comboBox
@@ -88,14 +88,14 @@ namespace SecondLife_Battery
             // 
             this.errorMsgTextBox.Location = new System.Drawing.Point(69, 658);
             this.errorMsgTextBox.Name = "errorMsgTextBox";
-            this.errorMsgTextBox.Size = new System.Drawing.Size(1175, 26);
+            this.errorMsgTextBox.Size = new System.Drawing.Size(1442, 26);
             this.errorMsgTextBox.TabIndex = 5;
             // 
             // SecondLifeDataSetClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1339, 770);
+            this.ClientSize = new System.Drawing.Size(1539, 770);
             this.Controls.Add(this.errorMsgTextBox);
             this.Controls.Add(this.comboBox);
             this.Controls.Add(this.dataGridViewWeather);

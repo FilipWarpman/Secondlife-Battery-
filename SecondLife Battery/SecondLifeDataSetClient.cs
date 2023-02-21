@@ -27,6 +27,7 @@ namespace SecondLife_Battery
 
         private async void GetResult_Click(object sender, EventArgs e)
         {
+            errorMsgTextBox.Clear();
             dal.ClearData();
             try
             {
@@ -85,7 +86,7 @@ namespace SecondLife_Battery
             }
             catch (Exception ex)
             {
-                errorMsgTextBox.AppendText("Choose an area in which you want to see the electricity prices");
+                errorMsgTextBox.AppendText(ex.Message);
             }
 
         }
