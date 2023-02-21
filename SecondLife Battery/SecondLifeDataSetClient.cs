@@ -28,8 +28,6 @@ namespace SecondLife_Battery
             dal.ClearData();
             if (comboBox.SelectedItem.Equals("SE1"))
             {
-                DateTime date = dateTimePicker.Value;
-                dal.SetDate(date);
                 dataGridViewElectricityPrices.DataSource = dal.GetElectricityPriceSE1();
                 DataGridViewColumn columnElectricityPriceDate = dataGridViewElectricityPrices.Columns[0];
                 ListSortDirection listSortDirection = (ListSortDirection)0;
@@ -42,8 +40,6 @@ namespace SecondLife_Battery
             }
             else if (comboBox.SelectedItem.Equals("SE2"))
             {
-                DateTime date = dateTimePicker.Value;
-                dal.SetDate(date);
                 dataGridViewElectricityPrices.DataSource = dal.GetElectricityPriceSE2();
                 DataGridViewColumn columnElectricityPriceDate = dataGridViewElectricityPrices.Columns[0];
                 ListSortDirection listSortDirection = (ListSortDirection)0;
@@ -56,8 +52,6 @@ namespace SecondLife_Battery
             }
             else if (comboBox.SelectedItem.Equals("SE3"))
             {
-                DateTime date = dateTimePicker.Value;
-                dal.SetDate(date);
                 dataGridViewElectricityPrices.DataSource = dal.GetElectricityPriceSE3();
                 DataGridViewColumn columnElectricityPriceDate = dataGridViewElectricityPrices.Columns[0];
                 ListSortDirection listSortDirection = (ListSortDirection)0;
@@ -70,8 +64,6 @@ namespace SecondLife_Battery
             }
             else if (comboBox.SelectedItem.Equals("SE4"))
             {
-                DateTime date = dateTimePicker.Value;
-                dal.SetDate(date);
                 dataGridViewElectricityPrices.DataSource = dal.GetElectricityPriceSE3();
                 DataGridViewColumn columnElectricityPriceDate = dataGridViewElectricityPrices.Columns[0];
                 ListSortDirection listSortDirection = (ListSortDirection)0;
@@ -86,11 +78,6 @@ namespace SecondLife_Battery
             {
                 errorMsgTextBox.AppendText("Something is wrong");
             }
-
-        }
-
-        private void DateTimePicker_ValueChanged(object sender, EventArgs e)
-        {
 
         }
 

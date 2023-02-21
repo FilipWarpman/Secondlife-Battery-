@@ -32,7 +32,6 @@ namespace SecondLife_Battery
         {
             this.dataGridViewElectricityPrices = new System.Windows.Forms.DataGridView();
             this.getResult = new System.Windows.Forms.Button();
-            this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.dataGridViewWeather = new System.Windows.Forms.DataGridView();
             this.comboBox = new System.Windows.Forms.ComboBox();
             this.errorMsgTextBox = new System.Windows.Forms.TextBox();
@@ -61,15 +60,6 @@ namespace SecondLife_Battery
             this.getResult.UseVisualStyleBackColor = true;
             this.getResult.Click += new System.EventHandler(this.GetResult_Click);
             // 
-            // dateTimePicker
-            // 
-            this.dateTimePicker.Location = new System.Drawing.Point(222, 60);
-            this.dateTimePicker.Name = "dateTimePicker";
-            this.dateTimePicker.Size = new System.Drawing.Size(200, 26);
-            this.dateTimePicker.TabIndex = 2;
-            this.dateTimePicker.Value = new System.DateTime(2022, 2, 20, 13, 24, 43, 104);
-            this.dateTimePicker.ValueChanged += new System.EventHandler(this.DateTimePicker_ValueChanged);
-            // 
             // dataGridViewWeather
             // 
             this.dataGridViewWeather.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -88,10 +78,11 @@ namespace SecondLife_Battery
             "SE2",
             "SE3",
             "SE4"});
-            this.comboBox.Location = new System.Drawing.Point(512, 91);
+            this.comboBox.Location = new System.Drawing.Point(269, 82);
             this.comboBox.Name = "comboBox";
-            this.comboBox.Size = new System.Drawing.Size(121, 28);
+            this.comboBox.Size = new System.Drawing.Size(295, 28);
             this.comboBox.TabIndex = 4;
+            this.comboBox.Text = "Area";
             // 
             // errorMsgTextBox
             // 
@@ -108,7 +99,6 @@ namespace SecondLife_Battery
             this.Controls.Add(this.errorMsgTextBox);
             this.Controls.Add(this.comboBox);
             this.Controls.Add(this.dataGridViewWeather);
-            this.Controls.Add(this.dateTimePicker);
             this.Controls.Add(this.getResult);
             this.Controls.Add(this.dataGridViewElectricityPrices);
             this.Name = "SecondLifeDataSetClient";
@@ -125,7 +115,6 @@ namespace SecondLife_Battery
 
         private System.Windows.Forms.DataGridView dataGridViewElectricityPrices;
         private System.Windows.Forms.Button getResult;
-        private System.Windows.Forms.DateTimePicker dateTimePicker;
         private System.Windows.Forms.DataGridView dataGridViewWeather;
         private System.Windows.Forms.ComboBox comboBox;
         private System.Windows.Forms.TextBox errorMsgTextBox;

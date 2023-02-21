@@ -38,7 +38,7 @@ namespace SecondLife_Battery
 
                 DateTime date2 = insertedDateValue.AddDays(6);
 
-                string sqlQuery = "SELECT Date, SE1 FROM ElectricityPrices WHERE Date between " + "'" + insertedDateValue.ToString("yyyy-MM-dd") + "'" + " and " + "'" + date2.ToString("yyyy-MM-dd") + "'";
+                string sqlQuery = "SELECT Date, SE1 FROM ElectricityPrices WHERE Date between CAST(GETDATE()-365 as Date) and CAST(GETDATE()-359 as Date)";
                 command.CommandText = sqlQuery;
                 command.Connection = connection;
 
@@ -59,7 +59,7 @@ namespace SecondLife_Battery
 
                 DateTime date2 = insertedDateValue.AddDays(6);
 
-                string sqlQuery = "SELECT Date, SE2 FROM ElectricityPrices WHERE Date between " + "'" + insertedDateValue.ToString("yyyy-MM-dd") + "'" + " and " + "'" + date2.ToString("yyyy-MM-dd") + "'";
+                string sqlQuery = "SELECT Date, SE2 FROM ElectricityPrices WHERE Date between CAST(GETDATE()-365 as Date) and CAST(GETDATE()-359 as Date)";
                 command.CommandText = sqlQuery;
                 command.Connection = connection;
 
@@ -80,7 +80,7 @@ namespace SecondLife_Battery
 
                 DateTime date2 = insertedDateValue.AddDays(6);
 
-                string sqlQuery = "SELECT Date, SE3 FROM ElectricityPrices WHERE Date between " + "'" + insertedDateValue.ToString("yyyy-MM-dd") + "'" + " and " + "'" + date2.ToString("yyyy-MM-dd") + "'";
+                string sqlQuery = "SELECT Date, SE3 FROM ElectricityPrices WHERE Date between CAST(GETDATE()-365 as Date) and CAST(GETDATE()-359 as Date)";
                 command.CommandText = sqlQuery;
                 command.Connection = connection;
 
@@ -101,7 +101,7 @@ namespace SecondLife_Battery
 
                 DateTime date2 = insertedDateValue.AddDays(6);
 
-                string sqlQuery = "SELECT Date, SE4 FROM ElectricityPrices WHERE Date between " + "'" + insertedDateValue.ToString("yyyy-MM-dd") + "'" + " and " + "'" + date2.ToString("yyyy-MM-dd") + "'";
+                string sqlQuery = "SELECT Date, SE4 FROM ElectricityPrices WHERE Date between CAST(GETDATE()-365 as Date) and CAST(GETDATE()-359 as Date)";
                 command.CommandText = sqlQuery;
                 command.Connection = connection;
 
