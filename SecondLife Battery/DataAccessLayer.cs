@@ -17,7 +17,8 @@ namespace SecondLife_Battery
         private string connectionString = @"Server=secondlife-battery.database.windows.net;Database=SecondLifeBatteryDB;user=SqlAdmin;password=Secondlife16;";
         private DateTime insertedDateValue;
         DataTable dataTable = new DataTable();
-
+        ArrayList arrayWind = new ArrayList();
+        ArrayList arrayCloud = new ArrayList();
 
         public void SetDate(DateTime tempDateValue)
         {
@@ -43,7 +44,9 @@ namespace SecondLife_Battery
                 adapter.Fill(dataTable);
                 dataTable.Columns["SE1"].ColumnName = "Electricity Price";
 
+
             }
+
             return dataTable;
         }
         public void ClearData()
@@ -64,19 +67,31 @@ namespace SecondLife_Battery
             var body = await response.Content.ReadAsStringAsync();
 
             dynamic weather = JsonConvert.DeserializeObject(body);
+            dataTable.Columns.Add("Cloud Cover");
+            dataTable.Columns.Add("Wind Speed");
+            DataRow dataRowCloud = dataTable.NewRow();
+            DataRow dataRowWind = dataTable.NewRow();
 
             foreach (var obj in weather.days)
             {
-                //string weather_test = obj.tempmax;
-                //Console.WriteLine(weather_test);
                 string weather_Date = obj.datetime;
                 string weather_wind = obj.windspeed;
                 string weather_cloudcover = obj.cloudcover;
-                Console.WriteLine(weather_cloudcover);
-
+                Console.WriteLine("Molntäckningssgraden för datumet " + weather_Date + " är: " + weather_cloudcover + "%, vindhastigheten är: " + weather_wind + "km/h.");
+                arrayWind.Add(weather_wind);
+                arrayCloud.Add(weather_cloudcover);
+                dataRowCloud[2] = weather_cloudcover;
+                dataRowWind[3] = weather_wind;
 
             }
-
+            dataTable.ImportRow(dataRowCloud);
+            dataTable.ImportRow(dataRowWind);
+            //dataRowCloud[2] = arrayCloud;
+            //dataRowWind[3] = arrayWind;
+            //dataTable.ImportRow(dataRowCloud);
+            //dataTable.ImportRow(dataRowWind);
+            //dataTable.Rows.Add(dataRowCloud);
+            //dataTable.Rows.Add(dataRowWind);
         }
     }
 }

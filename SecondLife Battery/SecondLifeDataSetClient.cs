@@ -23,23 +23,19 @@ namespace SecondLife_Battery
 
         }
 
-        private void GetResult_Click(object sender, EventArgs e)
+        private async void GetResult_Click(object sender, EventArgs e)
         {
             dal.ClearData();
             DateTime date = dateTimePicker.Value;
             dal.SetDate(date);
             dataGridViewElectricityPrices.DataSource = dal.GetElectricityPrice();
+            await dal.GetWeatherAsync();
             
         }
 
         private void DateTimePicker_ValueChanged(object sender, EventArgs e)
         {
 
-        }
-
-        private async void button1_Click(object sender, EventArgs e)
-        {
-            await dal.GetWeatherAsync();
         }
     }
 }
