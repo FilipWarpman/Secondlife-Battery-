@@ -188,7 +188,7 @@ namespace SecondLife_Battery
                     row[0] = arrayDate[i];
                     row[1] = (double)arrayWind[i];
                     row[2] = (double)arrayCloud[i];
-                    row[3] = "Yes, but only if you primary energy source is wind.";
+                    row[3] = "Yes, but only if your primary energy source is wind.";
                     dataTableWeather.Rows.Add(row);
                 }
                 else if ((double)arrayWind[i] < 15 && (double)arrayCloud[i] < 25) //Tweak the values here to recieve different output

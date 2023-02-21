@@ -83,13 +83,13 @@ namespace SecondLife_Battery
                 {
                     errorMsgTextBox.AppendText("We don´t know what is wrong");
                 }
-            }
+        }
             catch (Exception ex)
             {
-                errorMsgTextBox.AppendText(ex.Message);
+                
             }
 
-        }
+}
 
         private void SecondLifeDataSetClient_Load(object sender, EventArgs e)
         {
