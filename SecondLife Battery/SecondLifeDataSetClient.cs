@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -26,57 +28,64 @@ namespace SecondLife_Battery
         private async void GetResult_Click(object sender, EventArgs e)
         {
             dal.ClearData();
-            if (comboBox.SelectedItem.Equals("SE1"))
+            try
             {
-                dataGridViewElectricityPrices.DataSource = dal.GetElectricityPriceSE1();
-                DataGridViewColumn columnElectricityPriceDate = dataGridViewElectricityPrices.Columns[0];
-                ListSortDirection listSortDirection = (ListSortDirection)0;
-                dataGridViewElectricityPrices.Sort(columnElectricityPriceDate, listSortDirection);
-                DataGridViewColumn columnElectricityPrice = dataGridViewElectricityPrices.Columns[1];
-                columnElectricityPrice.Width = 120;
-                dataGridViewWeather.DataSource = await dal.GetWeatherAsync();
-                DataGridViewColumn columnDate = dataGridViewWeather.Columns[3];
-                columnDate.Width = 250;
+                if (comboBox.SelectedItem.Equals("SE1"))
+                {
+                    dataGridViewElectricityPrices.DataSource = dal.GetElectricityPriceSE1();
+                    DataGridViewColumn columnElectricityPriceDate = dataGridViewElectricityPrices.Columns[0];
+                    ListSortDirection listSortDirection = (ListSortDirection)0;
+                    dataGridViewElectricityPrices.Sort(columnElectricityPriceDate, listSortDirection);
+                    DataGridViewColumn columnElectricityPrice = dataGridViewElectricityPrices.Columns[1];
+                    columnElectricityPrice.Width = 120;
+                    dataGridViewWeather.DataSource = await dal.GetWeatherAsync();
+                    DataGridViewColumn columnDate = dataGridViewWeather.Columns[3];
+                    columnDate.Width = 250;
+                }
+                else if (comboBox.SelectedItem.Equals("SE2"))
+                {
+                    dataGridViewElectricityPrices.DataSource = dal.GetElectricityPriceSE2();
+                    DataGridViewColumn columnElectricityPriceDate = dataGridViewElectricityPrices.Columns[0];
+                    ListSortDirection listSortDirection = (ListSortDirection)0;
+                    dataGridViewElectricityPrices.Sort(columnElectricityPriceDate, listSortDirection);
+                    DataGridViewColumn columnElectricityPrice = dataGridViewElectricityPrices.Columns[1];
+                    columnElectricityPrice.Width = 120;
+                    dataGridViewWeather.DataSource = await dal.GetWeatherAsync();
+                    DataGridViewColumn columnDate = dataGridViewWeather.Columns[3];
+                    columnDate.Width = 250;
+                }
+                else if (comboBox.SelectedItem.Equals("SE3"))
+                {
+                    dataGridViewElectricityPrices.DataSource = dal.GetElectricityPriceSE3();
+                    DataGridViewColumn columnElectricityPriceDate = dataGridViewElectricityPrices.Columns[0];
+                    ListSortDirection listSortDirection = (ListSortDirection)0;
+                    dataGridViewElectricityPrices.Sort(columnElectricityPriceDate, listSortDirection);
+                    DataGridViewColumn columnElectricityPrice = dataGridViewElectricityPrices.Columns[1];
+                    columnElectricityPrice.Width = 120;
+                    dataGridViewWeather.DataSource = await dal.GetWeatherAsync();
+                    DataGridViewColumn columnDate = dataGridViewWeather.Columns[3];
+                    columnDate.Width = 250;
+                }
+                else if (comboBox.SelectedItem.Equals("SE4"))
+                {
+                    dataGridViewElectricityPrices.DataSource = dal.GetElectricityPriceSE3();
+                    DataGridViewColumn columnElectricityPriceDate = dataGridViewElectricityPrices.Columns[0];
+                    ListSortDirection listSortDirection = (ListSortDirection)0;
+                    dataGridViewElectricityPrices.Sort(columnElectricityPriceDate, listSortDirection);
+                    DataGridViewColumn columnElectricityPrice = dataGridViewElectricityPrices.Columns[1];
+                    columnElectricityPrice.Width = 120;
+                    dataGridViewWeather.DataSource = await dal.GetWeatherAsync();
+                    DataGridViewColumn columnDate = dataGridViewWeather.Columns[3];
+                    columnDate.Width = 250;
+                }
+                else
+                {
+                    errorMsgTextBox.AppendText("We don´t know what is wrong");
+                }
             }
-            else if (comboBox.SelectedItem.Equals("SE2"))
+            catch (Exception ex)
             {
-                dataGridViewElectricityPrices.DataSource = dal.GetElectricityPriceSE2();
-                DataGridViewColumn columnElectricityPriceDate = dataGridViewElectricityPrices.Columns[0];
-                ListSortDirection listSortDirection = (ListSortDirection)0;
-                dataGridViewElectricityPrices.Sort(columnElectricityPriceDate, listSortDirection);
-                DataGridViewColumn columnElectricityPrice = dataGridViewElectricityPrices.Columns[1];
-                columnElectricityPrice.Width = 120;
-                dataGridViewWeather.DataSource = await dal.GetWeatherAsync();
-                DataGridViewColumn columnDate = dataGridViewWeather.Columns[3];
-                columnDate.Width = 250;
-            }
-            else if (comboBox.SelectedItem.Equals("SE3"))
-            {
-                dataGridViewElectricityPrices.DataSource = dal.GetElectricityPriceSE3();
-                DataGridViewColumn columnElectricityPriceDate = dataGridViewElectricityPrices.Columns[0];
-                ListSortDirection listSortDirection = (ListSortDirection)0;
-                dataGridViewElectricityPrices.Sort(columnElectricityPriceDate, listSortDirection);
-                DataGridViewColumn columnElectricityPrice = dataGridViewElectricityPrices.Columns[1];
-                columnElectricityPrice.Width = 120;
-                dataGridViewWeather.DataSource = await dal.GetWeatherAsync();
-                DataGridViewColumn columnDate = dataGridViewWeather.Columns[3];
-                columnDate.Width = 250;
-            }
-            else if (comboBox.SelectedItem.Equals("SE4"))
-            {
-                dataGridViewElectricityPrices.DataSource = dal.GetElectricityPriceSE3();
-                DataGridViewColumn columnElectricityPriceDate = dataGridViewElectricityPrices.Columns[0];
-                ListSortDirection listSortDirection = (ListSortDirection)0;
-                dataGridViewElectricityPrices.Sort(columnElectricityPriceDate, listSortDirection);
-                DataGridViewColumn columnElectricityPrice = dataGridViewElectricityPrices.Columns[1];
-                columnElectricityPrice.Width = 120;
-                dataGridViewWeather.DataSource = await dal.GetWeatherAsync();
-                DataGridViewColumn columnDate = dataGridViewWeather.Columns[3];
-                columnDate.Width = 250;
-            }
-            else
-            {
-                errorMsgTextBox.AppendText("Something is wrong");
+                errorMsgTextBox.AppendText("Choose an area in which you want to see the electricity prices");
             }
 
         }
