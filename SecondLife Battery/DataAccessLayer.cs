@@ -28,7 +28,7 @@ namespace SecondLife_Battery
         {
             insertedDateValue = tempDateValue;
         }
-        public DataTable GetElectricityPrice()
+        public DataTable GetElectricityPriceSE1()
         {
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -46,6 +46,69 @@ namespace SecondLife_Battery
                 SqlCommandBuilder commandBuilder = new SqlCommandBuilder(adapter);
                 adapter.Fill(dataTable);
                 dataTable.Columns["SE1"].ColumnName = "Electricity Price";
+            }
+            return dataTable;
+        }
+        public DataTable GetElectricityPriceSE2()
+        {
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand();
+
+                DateTime date2 = insertedDateValue.AddDays(6);
+
+                string sqlQuery = "SELECT Date, SE2 FROM ElectricityPrices WHERE Date between " + "'" + insertedDateValue.ToString("yyyy-MM-dd") + "'" + " and " + "'" + date2.ToString("yyyy-MM-dd") + "'";
+                command.CommandText = sqlQuery;
+                command.Connection = connection;
+
+                SqlDataAdapter adapter = new SqlDataAdapter(sqlQuery, connection);
+                SqlCommandBuilder commandBuilder = new SqlCommandBuilder(adapter);
+                adapter.Fill(dataTable);
+                dataTable.Columns["SE2"].ColumnName = "Electricity Price";
+            }
+            return dataTable;
+        }
+        public DataTable GetElectricityPriceSE3()
+        {
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand();
+
+                DateTime date2 = insertedDateValue.AddDays(6);
+
+                string sqlQuery = "SELECT Date, SE3 FROM ElectricityPrices WHERE Date between " + "'" + insertedDateValue.ToString("yyyy-MM-dd") + "'" + " and " + "'" + date2.ToString("yyyy-MM-dd") + "'";
+                command.CommandText = sqlQuery;
+                command.Connection = connection;
+
+                SqlDataAdapter adapter = new SqlDataAdapter(sqlQuery, connection);
+                SqlCommandBuilder commandBuilder = new SqlCommandBuilder(adapter);
+                adapter.Fill(dataTable);
+                dataTable.Columns["SE3"].ColumnName = "Electricity Price";
+            }
+            return dataTable;
+        }
+        public DataTable GetElectricityPriceSE4()
+        {
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand();
+
+                DateTime date2 = insertedDateValue.AddDays(6);
+
+                string sqlQuery = "SELECT Date, SE4 FROM ElectricityPrices WHERE Date between " + "'" + insertedDateValue.ToString("yyyy-MM-dd") + "'" + " and " + "'" + date2.ToString("yyyy-MM-dd") + "'";
+                command.CommandText = sqlQuery;
+                command.Connection = connection;
+
+                SqlDataAdapter adapter = new SqlDataAdapter(sqlQuery, connection);
+                SqlCommandBuilder commandBuilder = new SqlCommandBuilder(adapter);
+                adapter.Fill(dataTable);
+                dataTable.Columns["SE4"].ColumnName = "Electricity Price";
             }
             return dataTable;
         }
