@@ -42,15 +42,11 @@ namespace SecondLife_Battery
                 command.CommandText = sqlQuery;
                 command.Connection = connection;
 
-
                 SqlDataAdapter adapter = new SqlDataAdapter(sqlQuery, connection);
                 SqlCommandBuilder commandBuilder = new SqlCommandBuilder(adapter);
                 adapter.Fill(dataTable);
                 dataTable.Columns["SE1"].ColumnName = "Electricity Price";
-
-
             }
-
             return dataTable;
         }
         public void ClearData()
@@ -124,7 +120,7 @@ namespace SecondLife_Battery
                     row[3] = "Yes, both windy and sunny weather!";
                     dataTableWeather.Rows.Add(row);
                 }
-                else if ((double)arrayWind[i] >= 15 && (Double)arrayCloud[i] >= 25)
+                else if ((double)arrayWind[i] >= 15 && (Double)arrayCloud[i] >= 25) //Tweak the values here to recieve different output
                 {
                     row[0] = arrayDate[i];
                     row[1] = (double)arrayWind[i];
@@ -132,7 +128,7 @@ namespace SecondLife_Battery
                     row[3] = "Yes, but only if you primary energy source is wind.";
                     dataTableWeather.Rows.Add(row);
                 }
-                else if ((double)arrayWind[i] < 15 && (double)arrayCloud[i] < 25)
+                else if ((double)arrayWind[i] < 15 && (double)arrayCloud[i] < 25) //Tweak the values here to recieve different output
                 {
                     row[0] = arrayDate[i];
                     row[1] = (double)arrayWind[i];
@@ -148,17 +144,6 @@ namespace SecondLife_Battery
                     row["Charge?"] = "No, it is cloudy and not very windy.";
                     dataTableWeather.Rows.Add(row);
                 }
-                
-                //if ((double)arrayCloud[i] < 25) //Tweak the values here to recieve different output
-                //{
-                //    Console.WriteLine("Sunny on the date: " + arrayDate[i]);
-                //    Console.WriteLine("The cloud coverage is: " + (double)arrayCloud[i] + "%");
-                //    Console.WriteLine("-------------------------------");
-
-                //    row["Date"] = arrayDate[i];
-                //    row["Wind Velocity"] = (double)arrayWind[i];
-                //    row["Cloud Coverage"] = (double)(arrayCloud[i]);
-                //}
             }
             return dataTableWeather;
         }
