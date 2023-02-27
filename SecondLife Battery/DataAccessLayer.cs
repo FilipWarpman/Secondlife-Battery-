@@ -16,7 +16,10 @@ namespace SecondLife_Battery
     {
         private string connectionString = @"Server=secondlife-battery.database.windows.net;Database=SecondLifeBatteryDB;user=SqlAdmin;password=Secondlife16;";
         private DateTime insertedDateValue;
-        DataTable dataTable = new DataTable();
+        DataTable dataTable1 = new DataTable();
+        DataTable dataTable2 = new DataTable();
+        DataTable dataTable3 = new DataTable();
+        DataTable dataTable4 = new DataTable();
         DataTable dataTableWeather = new DataTable();
         ArrayList arrayWind = new ArrayList();
         ArrayList arrayCloud = new ArrayList();
@@ -30,7 +33,6 @@ namespace SecondLife_Battery
         }
         public DataTable GetElectricityPriceSE1()
         {
-
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
@@ -44,14 +46,13 @@ namespace SecondLife_Battery
 
                 SqlDataAdapter adapter = new SqlDataAdapter(sqlQuery, connection);
                 SqlCommandBuilder commandBuilder = new SqlCommandBuilder(adapter);
-                adapter.Fill(dataTable);
-                dataTable.Columns["SE1"].ColumnName = "Electricity Price";
+                adapter.Fill(dataTable1);
+                dataTable1.Columns["SE1"].ColumnName = "Electricity Price";
             }
-            return dataTable;
+            return dataTable1;
         }
         public DataTable GetElectricityPriceSE2()
         {
-
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
@@ -65,14 +66,13 @@ namespace SecondLife_Battery
 
                 SqlDataAdapter adapter = new SqlDataAdapter(sqlQuery, connection);
                 SqlCommandBuilder commandBuilder = new SqlCommandBuilder(adapter);
-                adapter.Fill(dataTable);
-                dataTable.Columns["SE2"].ColumnName = "Electricity Price";
+                adapter.Fill(dataTable2);
+                dataTable2.Columns["SE2"].ColumnName = "Electricity Price";
             }
-            return dataTable;
+            return dataTable2;
         }
         public DataTable GetElectricityPriceSE3()
         {
-
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
@@ -86,14 +86,13 @@ namespace SecondLife_Battery
 
                 SqlDataAdapter adapter = new SqlDataAdapter(sqlQuery, connection);
                 SqlCommandBuilder commandBuilder = new SqlCommandBuilder(adapter);
-                adapter.Fill(dataTable);
-                dataTable.Columns["SE3"].ColumnName = "Electricity Price";
+                adapter.Fill(dataTable3);
+                dataTable3.Columns["SE3"].ColumnName = "Electricity Price";
             }
-            return dataTable;
+            return dataTable3;
         }
         public DataTable GetElectricityPriceSE4()
         {
-
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
@@ -107,24 +106,42 @@ namespace SecondLife_Battery
 
                 SqlDataAdapter adapter = new SqlDataAdapter(sqlQuery, connection);
                 SqlCommandBuilder commandBuilder = new SqlCommandBuilder(adapter);
-                adapter.Fill(dataTable);
-                dataTable.Columns["SE4"].ColumnName = "Electricity Price";
+                adapter.Fill(dataTable4);
+                dataTable4.Columns["SE4"].ColumnName = "Electricity Price";
             }
-            return dataTable;
+            return dataTable4;
         }
         public void ClearData()
         {
-            dataTable.Clear();
-            dataTable.Columns.Clear();
+            //dataTable.Clear();
+            //dataTable.Columns.Clear();
+        }
+        public void ClearWeatherData()
+        {
             dataTableWeather.Clear();
             dataTableWeather.Columns.Clear();
         }
 
-        public async Task<DataTable> GetWeatherAsync()
+        public async Task<DataTable> GetWeatherAsync(string electricityArea)
         {
+            string aPIRequest = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Lund?unitGroup=us&key=QDN24AE8877YDJTTM3MYA7RDS&contentType=json";
+
+            if (electricityArea.Equals("SE1"))
+            {
+                aPIRequest = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Lund?unitGroup=us&key=QDN24AE8877YDJTTM3MYA7RDS&contentType=json";
+            }
+            else if (electricityArea.Equals("SE2"))
+            {
+                aPIRequest = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Lund?unitGroup=us&key=QDN24AE8877YDJTTM3MYA7RDS&contentType=json";
+            }
+            else if (electricityArea.Equals("SE3"))
+            {
+                aPIRequest = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Lund?unitGroup=us&key=QDN24AE8877YDJTTM3MYA7RDS&contentType=json";
+            }
+            
             var client = new HttpClient();
 
-            var request = new HttpRequestMessage(HttpMethod.Get, "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Lund?unitGroup=us&key=QDN24AE8877YDJTTM3MYA7RDS&contentType=json");
+            var request = new HttpRequestMessage(HttpMethod.Get, aPIRequest);
 
             var response = await client.SendAsync(request);
             response.EnsureSuccessStatusCode(); // Throw an exception if error
