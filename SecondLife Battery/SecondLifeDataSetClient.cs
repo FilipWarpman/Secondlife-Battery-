@@ -48,7 +48,7 @@ namespace SecondLife_Battery
                 DataGridViewColumn columnElectricityPrice = dataGridViewElectricityPrices.Columns[1];
                 columnElectricityPrice.Width = 120;
                 dataGridViewWeather.DataSource = await dal.GetWeatherAsync(comboBox.Text);
-                DataGridViewColumn columnDate = dataGridViewWeather.Columns[3];
+                DataGridViewColumn columnDate = dataGridViewWeather.Columns[4];
                 columnDate.Width = 250;
             }
             else if (comboBox.SelectedItem.Equals("SE2"))
@@ -60,7 +60,7 @@ namespace SecondLife_Battery
                 DataGridViewColumn columnElectricityPrice = dataGridViewElectricityPrices.Columns[1];
                 columnElectricityPrice.Width = 120;
                 dataGridViewWeather.DataSource = await dal.GetWeatherAsync(comboBox.Text);
-                DataGridViewColumn columnDate = dataGridViewWeather.Columns[3];
+                DataGridViewColumn columnDate = dataGridViewWeather.Columns[4];
                 columnDate.Width = 250;
             }
             else if (comboBox.SelectedItem.Equals("SE3"))
@@ -72,7 +72,7 @@ namespace SecondLife_Battery
                 DataGridViewColumn columnElectricityPrice = dataGridViewElectricityPrices.Columns[1];
                 columnElectricityPrice.Width = 120;
                 dataGridViewWeather.DataSource = await dal.GetWeatherAsync(comboBox.Text);
-                DataGridViewColumn columnDate = dataGridViewWeather.Columns[3];
+                DataGridViewColumn columnDate = dataGridViewWeather.Columns[4];
                 columnDate.Width = 250;
             }
             else if (comboBox.SelectedItem.Equals("SE4"))
@@ -84,7 +84,7 @@ namespace SecondLife_Battery
                 DataGridViewColumn columnElectricityPrice = dataGridViewElectricityPrices.Columns[1];
                 columnElectricityPrice.Width = 120;
                 dataGridViewWeather.DataSource = await dal.GetWeatherAsync(comboBox.Text);
-                DataGridViewColumn columnDate = dataGridViewWeather.Columns[3];
+                DataGridViewColumn columnDate = dataGridViewWeather.Columns[4];
                 columnDate.Width = 250;
             }
             else

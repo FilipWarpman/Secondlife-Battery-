@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.WebRequestMethods;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace SecondLife_Battery
@@ -24,6 +25,8 @@ namespace SecondLife_Battery
         ArrayList arrayWind = new ArrayList();
         ArrayList arrayCloud = new ArrayList();
         ArrayList arrayDate = new ArrayList();
+        ArrayList arrayTemperature = new ArrayList();
+        private double temperature;
         private double windSpeed;
         private double cloudCover;
         private DateTime weatherDate;
@@ -124,19 +127,23 @@ namespace SecondLife_Battery
 
         public async Task<DataTable> GetWeatherAsync(string electricityArea)
         {
-            string aPIRequest = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Lund?unitGroup=us&key=QDN24AE8877YDJTTM3MYA7RDS&contentType=json";
+            string aPIRequest;
 
             if (electricityArea.Equals("SE1"))
             {
-                aPIRequest = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Lund?unitGroup=us&key=QDN24AE8877YDJTTM3MYA7RDS&contentType=json";
+                aPIRequest = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/lule%C3%A5?unitGroup=metric&key=QDN24AE8877YDJTTM3MYA7RDS&contentType=json";
             }
             else if (electricityArea.Equals("SE2"))
             {
-                aPIRequest = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Lund?unitGroup=us&key=QDN24AE8877YDJTTM3MYA7RDS&contentType=json";
+                aPIRequest = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/%C3%B6stersund?unitGroup=metric&key=QDN24AE8877YDJTTM3MYA7RDS&contentType=json";
             }
             else if (electricityArea.Equals("SE3"))
             {
-                aPIRequest = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Lund?unitGroup=us&key=QDN24AE8877YDJTTM3MYA7RDS&contentType=json";
+                aPIRequest = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/stockholm?unitGroup=metric&key=QDN24AE8877YDJTTM3MYA7RDS&contentType=json";
+            }
+            else
+            {
+                aPIRequest = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/lund?unitGroup=metric&key=QDN24AE8877YDJTTM3MYA7RDS&contentType=json";
             }
             
             var client = new HttpClient();
@@ -158,9 +165,11 @@ namespace SecondLife_Battery
                     windSpeed = Convert.ToDouble(obj.windspeed);
                     cloudCover = Convert.ToDouble(obj.cloudcover);
                     weatherDate = Convert.ToDateTime(weather_Date);
+                    temperature = Convert.ToDouble(obj.temp);
                     arrayWind.Add(windSpeed);
                     arrayCloud.Add(cloudCover);
                     arrayDate.Add(weather_Date);
+                    arrayTemperature.Add(temperature);
                 }
                 catch (Exception ex)
                 {
@@ -182,7 +191,12 @@ namespace SecondLife_Battery
             dataColumn = new DataColumn();
             dataColumn.ColumnName = "Cloud Coverage (%)";
             dataColumn.DataType = typeof(double);
-            dataTableWeather.Columns.Add(dataColumn);            
+            dataTableWeather.Columns.Add(dataColumn);
+            //Create the Temperature column.
+            dataColumn = new DataColumn();
+            dataColumn.ColumnName = "Temperature (°C)";
+            dataColumn.DataType = typeof(double);
+            dataTableWeather.Columns.Add(dataColumn);
             //Create the recommendation column.
             dataColumn = new DataColumn();
             dataColumn.ColumnName = "Charge?";
@@ -197,7 +211,8 @@ namespace SecondLife_Battery
                     row[0] = arrayDate[i];
                     row[1] = (double)arrayWind[i];
                     row[2] = (double)arrayCloud[i];
-                    row[3] = "Yes, both windy and sunny weather!";
+                    row[3] = (double)arrayTemperature[i];
+                    row[4] = "Yes, both windy and sunny weather!";
                     dataTableWeather.Rows.Add(row);
                 }
                 else if ((double)arrayWind[i] >= 15 && (Double)arrayCloud[i] >= 25) //Tweak the values here to recieve different output
@@ -205,7 +220,8 @@ namespace SecondLife_Battery
                     row[0] = arrayDate[i];
                     row[1] = (double)arrayWind[i];
                     row[2] = (double)arrayCloud[i];
-                    row[3] = "Yes, but only if your primary energy source is wind.";
+                    row[3] = (double)arrayTemperature[i];
+                    row[4] = "Yes, but only if your primary energy source is wind.";
                     dataTableWeather.Rows.Add(row);
                 }
                 else if ((double)arrayWind[i] < 15 && (double)arrayCloud[i] < 25) //Tweak the values here to recieve different output
@@ -213,7 +229,8 @@ namespace SecondLife_Battery
                     row[0] = arrayDate[i];
                     row[1] = (double)arrayWind[i];
                     row[2] = (double)arrayCloud[i];
-                    row[3] = "Yes, but only if your primary energy source is solar.";
+                    row[3] = (double)arrayTemperature[i];
+                    row[4] = "Yes, but only if your primary energy source is solar.";
                     dataTableWeather.Rows.Add(row);
                 }
                 else
@@ -221,6 +238,7 @@ namespace SecondLife_Battery
                     row["Date"] = arrayDate[i];
                     row["Wind Velocity (km/h)"] = (double)arrayWind[i];
                     row["Cloud Coverage (%)"] = (double)arrayCloud[i];
+                    row["Temperature (°C)"] = (double)arrayTemperature[i];
                     row["Charge?"] = "No, it is cloudy and not very windy.";
                     dataTableWeather.Rows.Add(row);
                 }
