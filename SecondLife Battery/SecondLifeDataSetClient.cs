@@ -14,20 +14,22 @@ namespace SecondLife_Battery
 {
     public partial class SecondLifeDataSetClient : Form
     {
+        List<Panel> listPanel = new List<Panel>();
         DataAccessLayer dal = new DataAccessLayer();
         DataTable dataFromSE4 = new DataTable();
         DataTable dataFromSE3 = new DataTable();
         DataTable dataFromSE2 = new DataTable();
         DataTable dataFromSE1 = new DataTable();
+        DataTable weatherdataFromSE4 = new DataTable();
+        DataTable weatherdataFromSE3 = new DataTable();
+        DataTable weatherdataFromSE2 = new DataTable();
+        DataTable weatherdataFromSE1 = new DataTable();
         public SecondLifeDataSetClient()
         {
             InitializeComponent();
             dataFromSE4 = dal.GetElectricityPriceSE4();
-
             dataFromSE3 = dal.GetElectricityPriceSE3();
-
             dataFromSE2 = dal.GetElectricityPriceSE2();
-
             dataFromSE1 = dal.GetElectricityPriceSE1();
 
         }
@@ -36,9 +38,13 @@ namespace SecondLife_Battery
         {
 
         }
-        private async void comboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            dal.ClearWeatherData();
+            Console.WriteLine("Selected item: " + comboBox.SelectedItem.ToString());
+            Console.WriteLine("Data from SE1: " + weatherdataFromSE1.Rows.Count.ToString() + " rows");
+            Console.WriteLine("Data from SE2: " + weatherdataFromSE2.Rows.Count.ToString() + " rows");
+            Console.WriteLine("Data from SE3: " + weatherdataFromSE3.Rows.Count.ToString() + " rows");
+            Console.WriteLine("Data from SE4: " + weatherdataFromSE4.Rows.Count.ToString() + " rows");
             if (comboBox.SelectedItem.Equals("SE1"))
             {
                 dataGridViewElectricityPrices.DataSource = dataFromSE1;
@@ -47,7 +53,7 @@ namespace SecondLife_Battery
                 dataGridViewElectricityPrices.Sort(columnElectricityPriceDate, listSortDirection);
                 DataGridViewColumn columnElectricityPrice = dataGridViewElectricityPrices.Columns[1];
                 columnElectricityPrice.Width = 120;
-                dataGridViewWeather.DataSource = await dal.GetWeatherAsync(comboBox.Text);
+                dataGridViewWeather.DataSource = weatherdataFromSE1;
                 DataGridViewColumn columnDate = dataGridViewWeather.Columns[4];
                 columnDate.Width = 250;
             }
@@ -59,7 +65,7 @@ namespace SecondLife_Battery
                 dataGridViewElectricityPrices.Sort(columnElectricityPriceDate, listSortDirection);
                 DataGridViewColumn columnElectricityPrice = dataGridViewElectricityPrices.Columns[1];
                 columnElectricityPrice.Width = 120;
-                dataGridViewWeather.DataSource = await dal.GetWeatherAsync(comboBox.Text);
+                dataGridViewWeather.DataSource = weatherdataFromSE2;
                 DataGridViewColumn columnDate = dataGridViewWeather.Columns[4];
                 columnDate.Width = 250;
             }
@@ -71,7 +77,7 @@ namespace SecondLife_Battery
                 dataGridViewElectricityPrices.Sort(columnElectricityPriceDate, listSortDirection);
                 DataGridViewColumn columnElectricityPrice = dataGridViewElectricityPrices.Columns[1];
                 columnElectricityPrice.Width = 120;
-                dataGridViewWeather.DataSource = await dal.GetWeatherAsync(comboBox.Text);
+                dataGridViewWeather.DataSource = weatherdataFromSE3;
                 DataGridViewColumn columnDate = dataGridViewWeather.Columns[4];
                 columnDate.Width = 250;
             }
@@ -83,7 +89,7 @@ namespace SecondLife_Battery
                 dataGridViewElectricityPrices.Sort(columnElectricityPriceDate, listSortDirection);
                 DataGridViewColumn columnElectricityPrice = dataGridViewElectricityPrices.Columns[1];
                 columnElectricityPrice.Width = 120;
-                dataGridViewWeather.DataSource = await dal.GetWeatherAsync(comboBox.Text);
+                dataGridViewWeather.DataSource = weatherdataFromSE4;
                 DataGridViewColumn columnDate = dataGridViewWeather.Columns[4];
                 columnDate.Width = 250;
             }
@@ -96,9 +102,17 @@ namespace SecondLife_Battery
 
         private void SecondLifeDataSetClient_Load(object sender, EventArgs e)
         {
-
+            WelcomePanel.BringToFront();
         }
 
-        
+        private async void NextButton_Click(object sender, EventArgs e)
+        {
+            weatherdataFromSE1 = await dal.GetWeatherAsyncSE1();
+            weatherdataFromSE2 = await dal.GetWeatherAsyncSE2();
+            weatherdataFromSE3 = await dal.GetWeatherAsyncSE3();
+            weatherdataFromSE4 = await dal.GetWeatherAsyncSE4();
+            ShowDataPanel.Show();
+            ShowDataPanel.BringToFront();           
+        }
     }
 }
