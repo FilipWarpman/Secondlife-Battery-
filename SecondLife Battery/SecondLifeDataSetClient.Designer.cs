@@ -79,7 +79,7 @@ namespace SecondLife_Battery
             this.comboBox.Size = new System.Drawing.Size(198, 21);
             this.comboBox.TabIndex = 4;
             this.comboBox.Text = "Area";
-            this.comboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox_SelectedIndexChanged);
+            this.comboBox.SelectedIndexChanged += new System.EventHandler(this.ComboBox_SelectedIndexChanged);
             // 
             // errorMsgTextBox
             // 

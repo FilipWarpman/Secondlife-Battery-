@@ -38,7 +38,7 @@ namespace SecondLife_Battery
         {
 
         }
-        private void comboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             Console.WriteLine("Selected item: " + comboBox.SelectedItem.ToString());
             Console.WriteLine("Data from SE1: " + weatherdataFromSE1.Rows.Count.ToString() + " rows");
