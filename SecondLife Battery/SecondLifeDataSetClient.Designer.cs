@@ -135,7 +135,7 @@ namespace SecondLife_Battery
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1929, 860);
+            this.ClientSize = new System.Drawing.Size(1037, 511);
             this.Controls.Add(this.WelcomePanel);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "SecondLifeDataSetClient";
