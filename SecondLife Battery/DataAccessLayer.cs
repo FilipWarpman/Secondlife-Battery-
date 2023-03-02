@@ -222,9 +222,9 @@ namespace SecondLife_Battery
                 DataRow row = dataTableWeather1.NewRow();
                 //wind between 15-90 km/h. Between 15-30 effects litle, 30-60 more, 60-90 a lot
                 //Cloud between 0-25% effects a lot, 25-50 slightly less, 50-75 a litle, 75-100 no effect
-                //Temperature minus 0 effects a lot, 0-10 slightly less, 10-15 a litle, 15-25 nothing, över 25 a litle
-                if ((double)arrayWind1[i] < 15 && 
-                    (double)arrayCloud1[i] >= 75 && (double)arrayCloud1[i] <= 100 && 
+                //Temperature minus 0 effects a lot, 0-10 slightly less, 10-15 a litle, 15-25 nothing
+                if ((double)arrayWind1[i] < 15 && //No wind, No sun, moderate temperature
+                    (double)arrayCloud1[i] >= 90 && (double)arrayCloud1[i] <= 100 && 
                     (double)arrayTemperature1[i] <= 25 && (double)arrayTemperature1[i] >= 15) 
                 {
                     row[0] = arrayDate1[i];
@@ -234,9 +234,31 @@ namespace SecondLife_Battery
                     row[4] = "No expected price change"; //No weather impact on price
                     dataTableWeather1.Rows.Add(row);
                 }
+                else if ((double)arrayWind1[i] < 15 && //No wind, sunny, cold temperature
+                    (double)arrayCloud1[i] <= 50 &&
+                    (double)arrayTemperature1[i] <= 10 && (double)arrayTemperature1[i] >= -10)
+                {
+                    row[0] = arrayDate1[i];
+                    row[1] = (double)arrayWind1[i];
+                    row[2] = (double)arrayCloud1[i];
+                    row[3] = (double)arrayTemperature1[i];
+                    row[4] = "Expected price reduction due to sun";
+                    dataTableWeather1.Rows.Add(row);
+                }
+                else if ((double)arrayWind1[i] < 15 && //No wind, sunny, cold temperature
+                    (double)arrayCloud1[i] <= 50 &&
+                    (double)arrayTemperature1[i] <= 0 && (double)arrayTemperature1[i] >= -20)
+                {
+                    row[0] = arrayDate1[i];
+                    row[1] = (double)arrayWind1[i];
+                    row[2] = (double)arrayCloud1[i];
+                    row[3] = (double)arrayTemperature1[i];
+                    row[4] = "No expected change due to cold weather and sun";
+                    dataTableWeather1.Rows.Add(row);
+                }
                 //Tweak the values here to recieve different output
-                else if ((double)arrayWind1[i] >= 15 && (double)arrayWind1[i] <= 30 &&
-                    (double)arrayCloud1[i] >= 75 && (double)arrayCloud1[i] <= 100 &&
+                else if ((double)arrayWind1[i] >= 15 && (double)arrayWind1[i] <= 30 && //Low wind, No sun, moderate temperature
+                    (double)arrayCloud1[i] >= 75 && (double)arrayCloud1[i] <= 90 &&
                     (double)arrayTemperature1[i] <= 25 && (double)arrayTemperature1[i] >= 15)
                 {
                     row[0] = arrayDate1[i];
@@ -246,20 +268,63 @@ namespace SecondLife_Battery
                     row[4] = "Expected slight price reduction due to some wind.";
                     dataTableWeather1.Rows.Add(row);
                 }
-                //Tweak the values here to recieve different output
-                else if ((double)arrayWind1[i] >= 30 && (double)arrayWind1[i] <= 60 &&
-                    (double)arrayCloud1[i] >= 75 && (double)arrayCloud1[i] <= 100 &&
+                else if ((double)arrayWind1[i] >= 15 && (double)arrayWind1[i] <= 30 &&//Low wind, moderate sun, moderate temperature
+                    (double)arrayCloud1[i] >= 50 && (double)arrayCloud1[i] <= 90 &&
                     (double)arrayTemperature1[i] <= 25 && (double)arrayTemperature1[i] >= 15)
                 {
                     row[0] = arrayDate1[i];
                     row[1] = (double)arrayWind1[i];
                     row[2] = (double)arrayCloud1[i];
                     row[3] = (double)arrayTemperature1[i];
-                    row[4] = "Expected price reduction due to wind.";
+                    row[4] = "Expected slight price reduction due to some wind.";
                     dataTableWeather1.Rows.Add(row);
                 }
-                else if ((double)arrayWind1[i] >= 60 && (double)arrayWind1[i] <= 90 &&
-                    (double)arrayCloud1[i] >= 75 && (double)arrayCloud1[i] <= 100 &&
+                else if ((double)arrayWind1[i] >= 15 && (double)arrayWind1[i] <= 60 &&//Low to medium wind, moderate sun, low temperature
+                    (double)arrayCloud1[i] >= 50 && (double)arrayCloud1[i] <= 90 &&
+                    (double)arrayTemperature1[i] <= 10)
+                {
+                    row[0] = arrayDate1[i];
+                    row[1] = (double)arrayWind1[i];
+                    row[2] = (double)arrayCloud1[i];
+                    row[3] = (double)arrayTemperature1[i];
+                    row[4] = "Expected slight price increase due to cold temperature";
+                    dataTableWeather1.Rows.Add(row);
+                }
+                else if ((double)arrayWind1[i] >= 15 && (double)arrayWind1[i] <= 60 &&//low to medium wind, sunny, cold temperature
+                    (double)arrayCloud1[i] <= 50 &&
+                    (double)arrayTemperature1[i] <= 10 && (double)arrayTemperature1[i] >= 0)
+                {
+                    row[0] = arrayDate1[i];
+                    row[1] = (double)arrayWind1[i];
+                    row[2] = (double)arrayCloud1[i];
+                    row[3] = (double)arrayTemperature1[i];
+                    row[4] = "Expected slight price reduction due to some wind and sun";
+                    dataTableWeather1.Rows.Add(row);
+                }
+                else if ((double)arrayWind1[i] >= 15 && (double)arrayWind1[i] <= 60 &&//low to medium wind, sunny, very cold temperature
+                    (double)arrayCloud1[i] <= 50 &&
+                    (double)arrayTemperature1[i] <= 10)
+                {
+                    row[0] = arrayDate1[i];
+                    row[1] = (double)arrayWind1[i];
+                    row[2] = (double)arrayCloud1[i];
+                    row[3] = (double)arrayTemperature1[i];
+                    row[4] = "No expected price change";
+                    dataTableWeather1.Rows.Add(row);
+                }
+                else if ((double)arrayWind1[i] >= 15 && (double)arrayWind1[i] <= 60 && //Low to medium wind, moderate sun, moderate temperature
+                    (double)arrayCloud1[i] >= 50 && (double)arrayCloud1[i] <= 90 &&
+                    (double)arrayTemperature1[i] <= 25 && (double)arrayTemperature1[i] >= 15)
+                {
+                    row[0] = arrayDate1[i];
+                    row[1] = (double)arrayWind1[i];
+                    row[2] = (double)arrayCloud1[i];
+                    row[3] = (double)arrayTemperature1[i];
+                    row[4] = "Expected slight price reduction due to some wind.";
+                    dataTableWeather1.Rows.Add(row);
+                }
+                else if ((double)arrayWind1[i] >= 30 && (double)arrayWind1[i] <= 90 && //Medium to strong wind, moderate sun, moderate temperature
+                    (double)arrayCloud1[i] >= 50 && (double)arrayCloud1[i] <= 90 &&
                     (double)arrayTemperature1[i] <= 25 && (double)arrayTemperature1[i] >= 15)
                 {
                     row[0] = arrayDate1[i];
@@ -269,13 +334,58 @@ namespace SecondLife_Battery
                     row[4] = "Expected price reduction due to strong wind.";
                     dataTableWeather1.Rows.Add(row);
                 }
+                else if ((double)arrayWind1[i] >= 30 && (double)arrayWind1[i] <= 90 && //Medium to strong wind, moderate sun, moderate temperature
+                    (double)arrayCloud1[i] >= 50 && (double)arrayCloud1[i] <= 90 &&
+                    (double)arrayTemperature1[i] <= 25 && (double)arrayTemperature1[i] >= 15)
+                {
+                    row[0] = arrayDate1[i];
+                    row[1] = (double)arrayWind1[i];
+                    row[2] = (double)arrayCloud1[i];
+                    row[3] = (double)arrayTemperature1[i];
+                    row[4] = "Expected price reduction due to strong wind.";
+                    dataTableWeather1.Rows.Add(row);
+                }
+                else if ((double)arrayWind1[i] >= 30 && (double)arrayWind1[i] <= 90 && //Medium to strong wind, moderate sun, moderate temperature
+                    (double)arrayCloud1[i] >= 50 && (double)arrayCloud1[i] <= 90 &&
+                    (double)arrayTemperature1[i] <= 25 && (double)arrayTemperature1[i] >= 15)
+                {
+                    row[0] = arrayDate1[i];
+                    row[1] = (double)arrayWind1[i];
+                    row[2] = (double)arrayCloud1[i];
+                    row[3] = (double)arrayTemperature1[i];
+                    row[4] = "Expected price reduction due to strong wind.";
+                    dataTableWeather1.Rows.Add(row);
+                }
+                else if ((double)arrayWind1[i] >= 30 && (double)arrayWind1[i] <= 90 && //Medium to strong wind, sunny, moderate temperature
+                    (double)arrayCloud1[i] <= 50 &&
+                    (double)arrayTemperature1[i] <= 25 && (double)arrayTemperature1[i] >= 15)
+                {
+                    row[0] = arrayDate1[i];
+                    row[1] = (double)arrayWind1[i];
+                    row[2] = (double)arrayCloud1[i];
+                    row[3] = (double)arrayTemperature1[i];
+                    row[4] = "Expected price reduction due to strong wind and sun.";
+                    dataTableWeather1.Rows.Add(row);
+                }
+                else if ((double)arrayWind1[i] >= 30 && (double)arrayWind1[i] <= 90 && //Medium to strong wind, sunny, moderate temperature
+                    (double)arrayCloud1[i] <= 50 &&
+                    (double)arrayTemperature1[i] <= 25 && (double)arrayTemperature1[i] >= 15)
+                {
+                    row[0] = arrayDate1[i];
+                    row[1] = (double)arrayWind1[i];
+                    row[2] = (double)arrayCloud1[i];
+                    row[3] = (double)arrayTemperature1[i];
+                    row[4] = "Expected price reduction due to strong wind and sun.";
+                    dataTableWeather1.Rows.Add(row);
+                }
+                //Tweak the values here to recieve different output
                 else
                 {
                     row["Date"] = arrayDate1[i];
                     row["Wind Velocity (km/h)"] = (double)arrayWind1[i];
                     row["Cloud Coverage (%)"] = (double)arrayCloud1[i];
                     row["Temperature (°C)"] = (double)arrayTemperature1[i];
-                    row["Charge?"] = "No, it is cloudy and not very windy.";
+                    row["Expected change"] = "No, it is cloudy and not very windy.";
                     dataTableWeather1.Rows.Add(row);
                 }
             }
@@ -306,7 +416,7 @@ namespace SecondLife_Battery
                 {
                     windSpeed2 = Convert.ToDouble(obj.windspeed);
                     cloudCover2 = Convert.ToDouble(obj.cloudcover);
-                    weatherDate2 = Convert.ToDateTime(weather_Date);
+                    weatherDate1 = Convert.ToDateTime(weather_Date);
                     temperature2 = Convert.ToDouble(obj.temp);
                     arrayWind2.Add(windSpeed2);
                     arrayCloud2.Add(cloudCover2);
@@ -341,47 +451,179 @@ namespace SecondLife_Battery
             dataTableWeather2.Columns.Add(dataColumn);
             //Create the recommendation column.
             dataColumn = new DataColumn();
-            dataColumn.ColumnName = "Charge?";
+            dataColumn.ColumnName = "Expected change";
             dataColumn.DataType = typeof(string);
             dataTableWeather2.Columns.Add(dataColumn);
-
             for (int i = 0; i < 7; i++)
             {
+                //Tweak the values here to recieve different output
                 DataRow row = dataTableWeather2.NewRow();
-                if ((double)arrayWind2[i] >= 15 && (double)arrayCloud2[i] < 25) //Tweak the values here to recieve different output
+                //wind between 15-90 km/h. Between 15-30 effects litle, 30-60 more, 60-90 a lot
+                //Cloud between 0-25% effects a lot, 25-50 slightly less, 50-75 a litle, 75-100 no effect
+                //Temperature minus 0 effects a lot, 0-10 slightly less, 10-15 a litle, 15-25 nothing
+                if ((double)arrayWind2[i] < 15 && //No wind, No sun, moderate temperature
+                    (double)arrayCloud2[i] >= 90 && (double)arrayCloud2[i] <= 100 &&
+                    (double)arrayTemperature2[i] <= 25 && (double)arrayTemperature2[i] >= 15)
                 {
                     row[0] = arrayDate2[i];
                     row[1] = (double)arrayWind2[i];
                     row[2] = (double)arrayCloud2[i];
                     row[3] = (double)arrayTemperature2[i];
-                    row[4] = "Yes, both windy and sunny weather!";
+                    row[4] = "No expected price change"; //No weather impact on price
                     dataTableWeather2.Rows.Add(row);
                 }
-                else if ((double)arrayWind2[i] >= 15 && (Double)arrayCloud2[i] >= 25) //Tweak the values here to recieve different output
+                else if ((double)arrayWind2[i] < 15 && //No wind, sunny, cold temperature
+                    (double)arrayCloud2[i] <= 50 &&
+                    (double)arrayTemperature2[i] <= 10 && (double)arrayTemperature2[i] >= -10)
                 {
                     row[0] = arrayDate2[i];
                     row[1] = (double)arrayWind2[i];
                     row[2] = (double)arrayCloud2[i];
                     row[3] = (double)arrayTemperature2[i];
-                    row[4] = "Yes, but only if your primary energy source is wind.";
+                    row[4] = "Expected price reduction due to sun";
                     dataTableWeather2.Rows.Add(row);
                 }
-                else if ((double)arrayWind2[i] < 15 && (double)arrayCloud2[i] < 25) //Tweak the values here to recieve different output
+                else if ((double)arrayWind2[i] < 15 && //No wind, sunny, cold temperature
+                    (double)arrayCloud2[i] <= 50 &&
+                    (double)arrayTemperature2[i] <= 0 && (double)arrayTemperature2[i] >= -20)
                 {
                     row[0] = arrayDate2[i];
                     row[1] = (double)arrayWind2[i];
                     row[2] = (double)arrayCloud2[i];
                     row[3] = (double)arrayTemperature2[i];
-                    row[4] = "Yes, but only if your primary energy source is solar.";
+                    row[4] = "No expected change due to cold weather and sun";
                     dataTableWeather2.Rows.Add(row);
                 }
+                //Tweak the values here to recieve different output
+                else if ((double)arrayWind2[i] >= 15 && (double)arrayWind2[i] <= 30 && //Low wind, No sun, moderate temperature
+                    (double)arrayCloud2[i] >= 75 && (double)arrayCloud2[i] <= 90 &&
+                    (double)arrayTemperature2[i] <= 25 && (double)arrayTemperature2[i] >= 15)
+                {
+                    row[0] = arrayDate2[i];
+                    row[1] = (double)arrayWind2[i];
+                    row[2] = (double)arrayCloud2[i];
+                    row[3] = (double)arrayTemperature2[i];
+                    row[4] = "Expected slight price reduction due to some wind.";
+                    dataTableWeather2.Rows.Add(row);
+                }
+                else if ((double)arrayWind2[i] >= 15 && (double)arrayWind2[i] <= 30 &&//Low wind, moderate sun, moderate temperature
+                    (double)arrayCloud2[i] >= 50 && (double)arrayCloud2[i] <= 90 &&
+                    (double)arrayTemperature2[i] <= 25 && (double)arrayTemperature2[i] >= 15)
+                {
+                    row[0] = arrayDate2[i];
+                    row[1] = (double)arrayWind2[i];
+                    row[2] = (double)arrayCloud2[i];
+                    row[3] = (double)arrayTemperature2[i];
+                    row[4] = "Expected slight price reduction due to some wind.";
+                    dataTableWeather2.Rows.Add(row);
+                }
+                else if ((double)arrayWind2[i] >= 15 && (double)arrayWind2[i] <= 60 &&//Low to medium wind, moderate sun, low temperature
+                    (double)arrayCloud2[i] >= 50 && (double)arrayCloud2[i] <= 90 &&
+                    (double)arrayTemperature2[i] <= 10)
+                {
+                    row[0] = arrayDate1[i];
+                    row[1] = (double)arrayWind2[i];
+                    row[2] = (double)arrayCloud2[i];
+                    row[3] = (double)arrayTemperature2[i];
+                    row[4] = "Expected slight price increase due to cold temperature";
+                    dataTableWeather2.Rows.Add(row);
+                }
+                else if ((double)arrayWind2[i] >= 15 && (double)arrayWind2[i] <= 60 &&//low to medium wind, sunny, cold temperature
+                    (double)arrayCloud2[i] <= 50 &&
+                    (double)arrayTemperature2[i] <= 10 && (double)arrayTemperature2[i] >= 0)
+                {
+                    row[0] = arrayDate2[i];
+                    row[1] = (double)arrayWind2[i];
+                    row[2] = (double)arrayCloud2[i];
+                    row[3] = (double)arrayTemperature2[i];
+                    row[4] = "Expected slight price reduction due to some wind and sun";
+                    dataTableWeather2.Rows.Add(row);
+                }
+                else if ((double)arrayWind2[i] >= 15 && (double)arrayWind2[i] <= 60 &&//low to medium wind, sunny, very cold temperature
+                    (double)arrayCloud2[i] <= 50 &&
+                    (double)arrayTemperature2[i] <= 10)
+                {
+                    row[0] = arrayDate2[i];
+                    row[1] = (double)arrayWind2[i];
+                    row[2] = (double)arrayCloud2[i];
+                    row[3] = (double)arrayTemperature2[i];
+                    row[4] = "No expected price change";
+                    dataTableWeather2.Rows.Add(row);
+                }
+                else if ((double)arrayWind2[i] >= 15 && (double)arrayWind2[i] <= 60 && //Low to medium wind, moderate sun, moderate temperature
+                    (double)arrayCloud2[i] >= 50 && (double)arrayCloud2[i] <= 90 &&
+                    (double)arrayTemperature2[i] <= 25 && (double)arrayTemperature2[i] >= 15)
+                {
+                    row[0] = arrayDate2[i];
+                    row[1] = (double)arrayWind2[i];
+                    row[2] = (double)arrayCloud2[i];
+                    row[3] = (double)arrayTemperature2[i];
+                    row[4] = "Expected slight price reduction due to some wind.";
+                    dataTableWeather2.Rows.Add(row);
+                }
+                else if ((double)arrayWind2[i] >= 30 && (double)arrayWind2[i] <= 90 && //Medium to strong wind, moderate sun, moderate temperature
+                    (double)arrayCloud2[i] >= 50 && (double)arrayCloud2[i] <= 90 &&
+                    (double)arrayTemperature2[i] <= 25 && (double)arrayTemperature2[i] >= 15)
+                {
+                    row[0] = arrayDate2[i];
+                    row[1] = (double)arrayWind2[i];
+                    row[2] = (double)arrayCloud2[i];
+                    row[3] = (double)arrayTemperature2[i];
+                    row[4] = "Expected price reduction due to strong wind.";
+                    dataTableWeather2.Rows.Add(row);
+                }
+                else if ((double)arrayWind2[i] >= 30 && (double)arrayWind2[i] <= 90 && //Medium to strong wind, moderate sun, moderate temperature
+                    (double)arrayCloud2[i] >= 50 && (double)arrayCloud2[i] <= 90 &&
+                    (double)arrayTemperature2[i] <= 25 && (double)arrayTemperature2[i] >= 15)
+                {
+                    row[0] = arrayDate2[i];
+                    row[1] = (double)arrayWind2[i];
+                    row[2] = (double)arrayCloud2[i];
+                    row[3] = (double)arrayTemperature2[i];
+                    row[4] = "Expected price reduction due to strong wind.";
+                    dataTableWeather2.Rows.Add(row);
+                }
+                else if ((double)arrayWind2[i] >= 30 && (double)arrayWind2[i] <= 90 && //Medium to strong wind, moderate sun, moderate temperature
+                    (double)arrayCloud2[i] >= 50 && (double)arrayCloud2[i] <= 90 &&
+                    (double)arrayTemperature2[i] <= 25 && (double)arrayTemperature2[i] >= 15)
+                {
+                    row[0] = arrayDate2[i];
+                    row[1] = (double)arrayWind2[i];
+                    row[2] = (double)arrayCloud2[i];
+                    row[3] = (double)arrayTemperature2[i];
+                    row[4] = "Expected price reduction due to strong wind.";
+                    dataTableWeather2.Rows.Add(row);
+                }
+                else if ((double)arrayWind2[i] >= 30 && (double)arrayWind2[i] <= 90 && //Medium to strong wind, sunny, moderate temperature
+                    (double)arrayCloud2[i] <= 50 &&
+                    (double)arrayTemperature2[i] <= 25 && (double)arrayTemperature2[i] >= 15)
+                {
+                    row[0] = arrayDate1[i];
+                    row[1] = (double)arrayWind2[i];
+                    row[2] = (double)arrayCloud2[i];
+                    row[3] = (double)arrayTemperature2[i];
+                    row[4] = "Expected price reduction due to strong wind and sun.";
+                    dataTableWeather2.Rows.Add(row);
+                }
+                else if ((double)arrayWind2[i] >= 30 && (double)arrayWind2[i] <= 90 && //Medium to strong wind, sunny, moderate temperature
+                    (double)arrayCloud2[i] <= 50 &&
+                    (double)arrayTemperature2[i] <= 25 && (double)arrayTemperature2[i] >= 15)
+                {
+                    row[0] = arrayDate1[i];
+                    row[1] = (double)arrayWind2[i];
+                    row[2] = (double)arrayCloud2[i];
+                    row[3] = (double)arrayTemperature2[i];
+                    row[4] = "Expected price reduction due to strong wind and sun.";
+                    dataTableWeather2.Rows.Add(row);
+                }
+                //Tweak the values here to recieve different output
                 else
                 {
-                    row["Date"] = arrayDate2[i];
+                    row["Date"] = arrayDate1[i];
                     row["Wind Velocity (km/h)"] = (double)arrayWind2[i];
                     row["Cloud Coverage (%)"] = (double)arrayCloud2[i];
                     row["Temperature (°C)"] = (double)arrayTemperature2[i];
-                    row["Charge?"] = "No, it is cloudy and not very windy.";
+                    row["Expected change"] = "No, it is cloudy and not very windy.";
                     dataTableWeather2.Rows.Add(row);
                 }
             }
