@@ -36,6 +36,7 @@ namespace SecondLife_Battery
             this.errorMsgTextBox = new System.Windows.Forms.TextBox();
             this.ShowDataPanel = new System.Windows.Forms.Panel();
             this.WelcomePanel = new System.Windows.Forms.Panel();
+            this.progressBarContinue = new System.Windows.Forms.ProgressBar();
             this.nextButton = new System.Windows.Forms.Button();
             this.welcomeLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewElectricityPrices)).BeginInit();
@@ -104,6 +105,7 @@ namespace SecondLife_Battery
             // WelcomePanel
             // 
             this.WelcomePanel.BackColor = System.Drawing.SystemColors.Control;
+            this.WelcomePanel.Controls.Add(this.progressBarContinue);
             this.WelcomePanel.Controls.Add(this.nextButton);
             this.WelcomePanel.Controls.Add(this.ShowDataPanel);
             this.WelcomePanel.Controls.Add(this.welcomeLabel);
@@ -111,6 +113,13 @@ namespace SecondLife_Battery
             this.WelcomePanel.Name = "WelcomePanel";
             this.WelcomePanel.Size = new System.Drawing.Size(1011, 485);
             this.WelcomePanel.TabIndex = 7;
+            // 
+            // progressBarContinue
+            // 
+            this.progressBarContinue.Location = new System.Drawing.Point(455, 264);
+            this.progressBarContinue.Name = "progressBarContinue";
+            this.progressBarContinue.Size = new System.Drawing.Size(94, 27);
+            this.progressBarContinue.TabIndex = 0;
             // 
             // nextButton
             // 
@@ -161,5 +170,6 @@ namespace SecondLife_Battery
         private System.Windows.Forms.Panel WelcomePanel;
         private System.Windows.Forms.Button nextButton;
         private System.Windows.Forms.Label welcomeLabel;
+        private System.Windows.Forms.ProgressBar progressBarContinue;
     }
 }

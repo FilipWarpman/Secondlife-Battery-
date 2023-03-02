@@ -108,9 +108,16 @@ namespace SecondLife_Battery
         private async void NextButton_Click(object sender, EventArgs e)
         {
             weatherdataFromSE1 = await dal.GetWeatherAsyncSE1();
+            progressBarContinue.Increment(25);
             weatherdataFromSE2 = await dal.GetWeatherAsyncSE2();
+            progressBarContinue.Increment(25);
             weatherdataFromSE3 = await dal.GetWeatherAsyncSE3();
+            progressBarContinue.Increment(25);
             weatherdataFromSE4 = await dal.GetWeatherAsyncSE4();
+            progressBarContinue.Increment(25);
+            comboBox.SelectedIndex = 0;
+            dataGridViewElectricityPrices.DataSource = dataFromSE1;
+            dataGridViewWeather.DataSource = weatherdataFromSE1;
             ShowDataPanel.Show();
             ShowDataPanel.BringToFront();           
         }
