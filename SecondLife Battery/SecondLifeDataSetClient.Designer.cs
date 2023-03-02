@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace SecondLife_Battery
 {
@@ -59,11 +61,13 @@ namespace SecondLife_Battery
             this.dataGridViewElectricityPrices.Size = new System.Drawing.Size(317, 198);
             this.dataGridViewElectricityPrices.TabIndex = 0;
             this.dataGridViewElectricityPrices.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewElectricityPrices);
+            this.dataGridViewElectricityPrices.Font = new System.Drawing.Font("Verdana", 8, FontStyle.Regular);
+            this.dataGridViewElectricityPrices.ColumnHeadersDefaultCellStyle.Font = new Font(DataGridView.DefaultFont, FontStyle.Bold);
             // 
             // dataGridViewWeather
             // 
-            this.dataGridViewWeather.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataGridViewWeather.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridViewWeather.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewWeather.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dataGridViewWeather.BackgroundColor = System.Drawing.SystemColors.WindowText;
             this.dataGridViewWeather.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewWeather.Location = new System.Drawing.Point(301, 111);
@@ -71,6 +75,8 @@ namespace SecondLife_Battery
             this.dataGridViewWeather.RowHeadersWidth = 62;
             this.dataGridViewWeather.Size = new System.Drawing.Size(707, 196);
             this.dataGridViewWeather.TabIndex = 3;
+            this.dataGridViewWeather.Font = new System.Drawing.Font("Verdana", 8, FontStyle.Regular);
+            this.dataGridViewWeather.ColumnHeadersDefaultCellStyle.Font = new Font(DataGridView.DefaultFont, FontStyle.Bold);
             // 
             // comboBox
             // 
@@ -89,6 +95,7 @@ namespace SecondLife_Battery
             this.comboBox.TabIndex = 4;
             this.comboBox.Text = "Area";
             this.comboBox.SelectedIndexChanged += new System.EventHandler(this.ComboBox_SelectedIndexChanged);
+            this.comboBox.Font = new System.Drawing.Font("Verdana", 7, FontStyle.Regular);
             // 
             // ShowDataPanel
             // 
@@ -100,7 +107,6 @@ namespace SecondLife_Battery
             this.ShowDataPanel.Name = "ShowDataPanel";
             this.ShowDataPanel.Size = new System.Drawing.Size(998, 463);
             this.ShowDataPanel.TabIndex = 6;
-            this.ShowDataPanel.Hide();
             // 
             // WelcomePanel
             // 
@@ -114,6 +120,7 @@ namespace SecondLife_Battery
             this.WelcomePanel.Name = "WelcomePanel";
             this.WelcomePanel.Size = new System.Drawing.Size(1011, 485);
             this.WelcomePanel.TabIndex = 7;
+            //this.WelcomePanel.Hide();
             // 
             // progressBarContinue
             // 
