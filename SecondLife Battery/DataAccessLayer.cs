@@ -416,7 +416,7 @@ namespace SecondLife_Battery
                 {
                     windSpeed2 = Convert.ToDouble(obj.windspeed);
                     cloudCover2 = Convert.ToDouble(obj.cloudcover);
-                    weatherDate1 = Convert.ToDateTime(weather_Date);
+                    weatherDate2 = Convert.ToDateTime(weather_Date);
                     temperature2 = Convert.ToDouble(obj.temp);
                     arrayWind2.Add(windSpeed2);
                     arrayCloud2.Add(cloudCover2);
@@ -608,6 +608,17 @@ namespace SecondLife_Battery
                 else if ((double)arrayWind2[i] >= 30 && (double)arrayWind2[i] <= 90 && //Medium to strong wind, sunny, moderate temperature
                     (double)arrayCloud2[i] <= 50 &&
                     (double)arrayTemperature2[i] <= 25 && (double)arrayTemperature2[i] >= 15)
+                {
+                    row[0] = arrayDate1[i];
+                    row[1] = (double)arrayWind2[i];
+                    row[2] = (double)arrayCloud2[i];
+                    row[3] = (double)arrayTemperature2[i];
+                    row[4] = "Expected price reduction due to strong wind and sun.";
+                    dataTableWeather2.Rows.Add(row);
+                }
+                else if ((double)arrayWind2[i] >= 30 && (double)arrayWind2[i] <= 90 && //Medium to strong wind, moderate sun, moderate temperature
+                    (double)arrayCloud2[i] >= 50 && (double)arrayCloud2[i] <= 90 &&
+                    (double)arrayTemperature2[i] <= 10 )
                 {
                     row[0] = arrayDate1[i];
                     row[1] = (double)arrayWind2[i];
