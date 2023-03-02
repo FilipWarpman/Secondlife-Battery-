@@ -95,7 +95,7 @@ namespace SecondLife_Battery
             }
             else
             {
-                errorMsgTextBox.AppendText("Choose an area where you want your data from");
+                //Error handling here.
             }
 
         }
@@ -120,6 +120,8 @@ namespace SecondLife_Battery
             comboBox.SelectedIndex = 0;
             dataGridViewElectricityPrices.DataSource = dataFromSE1;
             dataGridViewWeather.DataSource = weatherdataFromSE1;
+            dataGridViewElectricityPrices.ReadOnly = true;
+            dataGridViewWeather.ReadOnly = true;
             ShowDataPanel.Show();
             ShowDataPanel.BringToFront();           
         }
