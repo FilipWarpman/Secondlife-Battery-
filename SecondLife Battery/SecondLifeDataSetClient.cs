@@ -103,10 +103,12 @@ namespace SecondLife_Battery
         private void SecondLifeDataSetClient_Load(object sender, EventArgs e)
         {
             WelcomePanel.BringToFront();
+            progressBarContinue.Visible = false;
         }
 
         private async void NextButton_Click(object sender, EventArgs e)
         {
+            progressBarContinue.Visible = true;
             weatherdataFromSE1 = await dal.GetWeatherAsyncSE1();
             progressBarContinue.Increment(25);
             weatherdataFromSE2 = await dal.GetWeatherAsyncSE2();
