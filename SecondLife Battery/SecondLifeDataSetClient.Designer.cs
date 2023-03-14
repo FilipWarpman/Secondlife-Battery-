@@ -121,7 +121,6 @@ namespace SecondLife_Battery
             this.WelcomePanel.Name = "WelcomePanel";
             this.WelcomePanel.Size = new System.Drawing.Size(1011, 485);
             this.WelcomePanel.TabIndex = 7;
-            //this.WelcomePanel.Hide();
             // 
             // progressBarContinue
             // 
