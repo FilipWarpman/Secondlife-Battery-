@@ -107,6 +107,7 @@ namespace SecondLife_Battery
             this.ShowDataPanel.Name = "ShowDataPanel";
             this.ShowDataPanel.Size = new System.Drawing.Size(998, 463);
             this.ShowDataPanel.TabIndex = 6;
+            this.ShowDataPanel.Hide();
             // 
             // WelcomePanel
             // 
