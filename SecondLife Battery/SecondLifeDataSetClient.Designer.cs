@@ -62,7 +62,7 @@ namespace SecondLife_Battery
             this.dataGridViewElectricityPrices.TabIndex = 0;
             this.dataGridViewElectricityPrices.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewElectricityPrices);
             this.dataGridViewElectricityPrices.Font = new System.Drawing.Font("Verdana", 8, FontStyle.Regular);
-            this.dataGridViewElectricityPrices.ColumnHeadersDefaultCellStyle.Font = new Font(DataGridView.DefaultFont, FontStyle.Bold);
+            this.dataGridViewElectricityPrices.ColumnHeadersDefaultCellStyle.Font = new Font(DataGridView.DefaultFont, FontStyle.Regular);
             // 
             // dataGridViewWeather
             // 
@@ -76,7 +76,7 @@ namespace SecondLife_Battery
             this.dataGridViewWeather.Size = new System.Drawing.Size(707, 196);
             this.dataGridViewWeather.TabIndex = 3;
             this.dataGridViewWeather.Font = new System.Drawing.Font("Verdana", 8, FontStyle.Regular);
-            this.dataGridViewWeather.ColumnHeadersDefaultCellStyle.Font = new Font(DataGridView.DefaultFont, FontStyle.Bold);
+            this.dataGridViewWeather.ColumnHeadersDefaultCellStyle.Font = new Font(DataGridView.DefaultFont, FontStyle.Regular);
             // 
             // comboBox
             // 
