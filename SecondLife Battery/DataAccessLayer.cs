@@ -468,12 +468,12 @@ namespace SecondLife_Battery
                 string weather_Date = obj.datetime;
                 try
                 {
-                    windSpeed3 = Convert.ToDouble(obj.windspeed);
-                    cloudCover3 = Convert.ToDouble(obj.cloudcover);
+                    windSpeed2 = Convert.ToDouble(obj.windspeed);
+                    cloudCover2 = Convert.ToDouble(obj.cloudcover);
                     weatherDate2 = Convert.ToDateTime(weather_Date);
                     temperature2 = Convert.ToDouble(obj.temp);
-                    arrayWind2.Add(windSpeed3);
-                    arrayCloud2.Add(cloudCover3);
+                    arrayWind2.Add(windSpeed2);
+                    arrayCloud2.Add(cloudCover2);
                     arrayDate2.Add(weather_Date);
                     arrayTemperature2.Add(temperature2);
                 }
@@ -1159,40 +1159,40 @@ namespace SecondLife_Battery
                 }
                 else if ((double)arrayWind4[i] >= 15 && (double)arrayWind4[i] <= 60 &&//low to medium wind, sunny, cold temperature
                     (double)arrayCloud4[i] <= 50 &&
-                    (double)arrayTemperature3[i] <= 10 && (double)arrayTemperature3[i] >= 0)
+                    (double)arrayTemperature4[i] <= 10 && (double)arrayTemperature4[i] >= 0)
                 {
                     row[0] = arrayDate4[i];
                     row[1] = (double)arrayWind4[i];
                     row[2] = (double)arrayCloud4[i];
-                    row[3] = (double)arrayTemperature3[i];
+                    row[3] = (double)arrayTemperature4[i];
                     row[4] = "Slight reduction due to some wind and sun";
                     dataTableWeather4.Rows.Add(row);
                 }
                 else if ((double)arrayWind4[i] >= 15 && (double)arrayWind4[i] <= 60 &&//low to medium wind, sunny, very cold temperature
                     (double)arrayCloud4[i] <= 50 &&
-                    (double)arrayTemperature3[i] <= 10)
+                    (double)arrayTemperature4[i] <= 10)
                 {
                     row[0] = arrayDate4[i];
                     row[1] = (double)arrayWind4[i];
                     row[2] = (double)arrayCloud4[i];
-                    row[3] = (double)arrayTemperature3[i];
+                    row[3] = (double)arrayTemperature4[i];
                     row[4] = "No expected price change";
                     dataTableWeather4.Rows.Add(row);
                 }
                 else if ((double)arrayWind4[i] >= 15 && (double)arrayWind4[i] <= 60 && //Low to medium wind, moderate sun, moderate temperature
                     (double)arrayCloud4[i] >= 50 && (double)arrayCloud4[i] <= 90 &&
-                    (double)arrayTemperature3[i] <= 25 && (double)arrayTemperature3[i] >= 15)
+                    (double)arrayTemperature4[i] <= 25 && (double)arrayTemperature4[i] >= 15)
                 {
                     row[0] = arrayDate4[i];
                     row[1] = (double)arrayWind4[i];
                     row[2] = (double)arrayCloud4[i];
-                    row[3] = (double)arrayTemperature3[i];
+                    row[3] = (double)arrayTemperature4[i];
                     row[4] = "Slight reduction due to some wind.";
                     dataTableWeather4.Rows.Add(row);
                 }
                 else if ((double)arrayWind4[i] >= 30 && (double)arrayWind4[i] <= 90 && //Medium to strong wind, moderate sun, moderate temperature
                     (double)arrayCloud4[i] >= 50 && (double)arrayCloud4[i] <= 90 &&
-                    (double)arrayTemperature3[i] <= 25 && (double)arrayTemperature3[i] >= 15)
+                    (double)arrayTemperature4[i] <= 25 && (double)arrayTemperature4[i] >= 15)
                 {
                     row[0] = arrayDate4[i];
                     row[1] = (double)arrayWind4[i];
@@ -1227,7 +1227,7 @@ namespace SecondLife_Battery
                     (double)arrayCloud4[i] <= 50 &&
                     (double)arrayTemperature4[i] <= 25 && (double)arrayTemperature4[i] >= 15)
                 {
-                    row[0] = arrayDate1[i];
+                    row[0] = arrayDate4[i];
                     row[1] = (double)arrayWind4[i];
                     row[2] = (double)arrayCloud4[i];
                     row[3] = (double)arrayTemperature4[i];
@@ -1238,7 +1238,7 @@ namespace SecondLife_Battery
                     (double)arrayCloud4[i] <= 50 &&
                     (double)arrayTemperature4[i] <= 25 && (double)arrayTemperature4[i] >= 15)
                 {
-                    row[0] = arrayDate1[i];
+                    row[0] = arrayDate4[i];
                     row[1] = (double)arrayWind4[i];
                     row[2] = (double)arrayCloud4[i];
                     row[3] = (double)arrayTemperature4[i];
@@ -1249,7 +1249,7 @@ namespace SecondLife_Battery
                     (double)arrayCloud4[i] >= 50 && (double)arrayCloud4[i] <= 90 &&
                     (double)arrayTemperature4[i] <= 10)
                 {
-                    row[0] = arrayDate1[i];
+                    row[0] = arrayDate4[i];
                     row[1] = (double)arrayWind4[i];
                     row[2] = (double)arrayCloud4[i];
                     row[3] = (double)arrayTemperature4[i];
@@ -1260,7 +1260,7 @@ namespace SecondLife_Battery
                     (double)arrayCloud4[i] >= 90 &&
                     (double)arrayTemperature4[i] <= 10)
                 {
-                    row[0] = arrayDate1[i];
+                    row[0] = arrayDate4[i];
                     row[1] = (double)arrayWind4[i];
                     row[2] = (double)arrayCloud4[i];
                     row[3] = (double)arrayTemperature4[i];
@@ -1271,7 +1271,7 @@ namespace SecondLife_Battery
                     (double)arrayCloud4[i] >= 90 &&
                     (double)arrayTemperature4[i] <= 0)
                 {
-                    row[0] = arrayDate1[i];
+                    row[0] = arrayDate4[i];
                     row[1] = (double)arrayWind4[i];
                     row[2] = (double)arrayCloud4[i];
                     row[3] = (double)arrayTemperature4[i];
@@ -1282,7 +1282,7 @@ namespace SecondLife_Battery
                     (double)arrayCloud4[i] >= 50 && (double)arrayCloud4[i] <= 90 &&
                     (double)arrayTemperature4[i] <= 0)
                 {
-                    row[0] = arrayDate1[i];
+                    row[0] = arrayDate4[i];
                     row[1] = (double)arrayWind4[i];
                     row[2] = (double)arrayCloud4[i];
                     row[3] = (double)arrayTemperature4[i];
@@ -1293,7 +1293,7 @@ namespace SecondLife_Battery
                     (double)arrayCloud4[i] >= 90 &&
                     (double)arrayTemperature4[i] <= 0)
                 {
-                    row[0] = arrayDate1[i];
+                    row[0] = arrayDate4[i];
                     row[1] = (double)arrayWind4[i];
                     row[2] = (double)arrayCloud4[i];
                     row[3] = (double)arrayTemperature4[i];
@@ -1303,7 +1303,7 @@ namespace SecondLife_Battery
                 //Tweak the values here to recieve different output
                 else
                 {
-                    row["Date"] = arrayDate1[i];
+                    row["Date"] = arrayDate4[i];
                     row["Wind Velocity (km/h)"] = (double)arrayWind4[i];
                     row["Cloud Coverage (%)"] = (double)arrayCloud4[i];
                     row["Temperature (°C)"] = (double)arrayTemperature4[i];
